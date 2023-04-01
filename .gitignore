@@ -1,7 +1,6 @@
 *.pyc  
 *~  
 __pycache__  
-myEnv
 /static
 /media
 db.sqlite3
@@ -17,7 +16,7 @@ db.sqlite3
 # Environments 
 .env 
 .venv 
-env/ 
+env/
 venv/ 
 ENV/ 
 env.bak/ 
