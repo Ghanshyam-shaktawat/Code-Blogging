@@ -1,14 +1,28 @@
+{% load markdown_extras %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'core/detail.css' %}">
+    <title>{% block title%}{{ post.title }} - Blogging{% endblock %}</title>
 </head>
+
 <body>
-    <p>{{ post.title }}</p>
-    <p>{{ post.snippets }}</p>
-    <p>{{ post.body }}</p>
+    <div class="body-wrapper">
+        <article class="main-article">
+            <header class="main-head">
+                <h1 class="main-title">{{ post.title }}</h1>
+                <p class="main-snip">Snippets</p>
+            </header>
+            <div class="main-body">
+                {{ post.body | convert_to_markdown | safe }}
+            </div>
+        </article>
+    </div>
 </body>
+
 </html>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from core.models import Post
 
 # def index(request):
@@ -7,9 +7,12 @@ from core.models import Post
 #     context = {'posts': posts}
 #     return render(request, 'core/index.html', context)
 
-# def detailPost(request, post_id):
-#     post = get_object_or_404(Post, pk=post_id)
-#     return render(request, 'core/detail.html', {'post': post})
+# def post(request,slug):
+#     post = Post.objects.get(slug=slug)
+#     context = {
+#         'post': post,
+#     }
+#     return render(request, 'post.html', context)
 
 # def newPost(request):
 #     post = Post()
@@ -28,3 +31,9 @@ class IndexView(ListView):
     
     def get_queryset(self):
         return Post.objects.filter(status=1).order_by('-created_on')
+
+class PostDetailView(DetailView):
+    """Detail view of the post for readers."""
+    model = Post
+    template_name = 'core/detail.html'
+    

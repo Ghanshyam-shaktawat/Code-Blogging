@@ -15,7 +15,7 @@ STATUS = [
 #     email = models.EmailField(_("Email"), unique=True, max_length=70)
 
 class Post(models.Model):
-    """Model for Post"""
+    """Model for Blog Post"""
     title = models.CharField(max_length=200)
     snippets = models.CharField(max_length=120)
     slug = models.SlugField(unique=True, max_length=200, null=False, help_text="Post unique url")

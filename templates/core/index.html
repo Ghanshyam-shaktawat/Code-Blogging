@@ -8,8 +8,9 @@
 </head>
 <body>
     {% for post in posts %}
-    <a href="#"><h1>{{ post.title }}</h1></a>
+    <a href="{% url 'detail' post.slug %}"><h1>{{ post.title }}</h1></a>
     <p>{{ post.snippets }}</p>
+    <p>{{ post.slug }}</p>
     {% endfor %}
 </body>
 </html>
