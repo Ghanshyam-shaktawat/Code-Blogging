@@ -5,7 +5,7 @@ from core.models import Post
 from core.forms import NewPostForm
 
 def index(request):
-    posts = Post.objects.filter(status=0).order_by('-created_on')
+    posts = Post.objects.filter(status=1).order_by('-created_on')
     context = {'posts': posts}
     return render(request, 'core/index.html', context)
 
