@@ -1,20 +1,12 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 STATUS = [
     (0, 'draft'),
     (1, 'publish')
-]
-
-
-# class Author(AbstractUser):
-#     """
-#     Using predefined user model and overriding and adding new filds to user model
-#     """
-    # email = models.EmailField(_("Email"), unique=True, null=False, max_length=70)
-#     bio = models.CharField(max_length=220, null=True)
+]    
 
 class Post(models.Model):
     """Model for Blog Post"""
@@ -24,10 +16,11 @@ class Post(models.Model):
     body = models.TextField()
     created_on = models.DateTimeField('Date Published', auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post')
     
     def __str__(self):
         return self.title
     
     def get_absolute_url(self):
         """It redirects to the detail page after an database entry"""
-        return reverse('detail', args=[str(self.slug)])
+        return reverse('core:detail', args=[str(self.user.username), str(self.slug)])

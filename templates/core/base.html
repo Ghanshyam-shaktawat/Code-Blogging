@@ -18,12 +18,12 @@
     <!-- Main nav -->
     <header class="main-header">
         <div class="header-container">
-            <a href="{% url 'index' %}" class="main-logo">Code Blog</a>
+            <a href="{% url 'core:index' %}" class="main-logo">Code Blog</a>
             <div class="header-search">
                 <form method="get" action="/search" autocomplete="off" class="search-form">
                     <div class="form-wrapper">
-                        <input type="text" id="my-search" placeholder="Search..." name="q">
-                        <button type="submit" class="search-but">
+                        <input type="text" id="my-search" placeholder="Search..." name="q" onchange="searchEmpty()">
+                        <button type="submit" class="search-but" id="searchButton" disabled="disabled">
                             <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-search search-but-icon"
                                 viewBox="0 0 16 16">
                                 <path
@@ -36,38 +36,42 @@
             <div class="user-sec">
                 {% if user.is_authenticated %}
                 <div class="authentication-top-nav">
-                    <a href="{% url 'new-post' %}" class="nav-new-post">Create Post</a>
+                    <a href="{% url 'core:new-post' %}" class="nav-new-post">Create Post</a>
                     <img src="{% static 'core/images/default.jpg' %}" class="nav-user-img" id="dropbtn"
                         onclick="toogleDropdown()">
                     <div class="dropdown-nav" id="dropdown">
                         
                         <ul>
-                            <li>
+                            <li class="nav-userinfo">
                                 <span>Singed in as</span><br>
                                 <span class="bold">@{{ user.username }}</span>
                             </li>
                             <hr/>
                             <li><a href="#" class="drop-nav-item">Dashboard</a></li>
-                            <li><a href="#" class="drop-nav-item">Your Profile</a></li>
-                            <li><a href="{% url 'new-post' %}" class="drop-nav-item">Create Post</a></li>
+                            <li><a href="{% url 'core:profile' user.username %}" class="drop-nav-item">Your Profile</a></li>
+                            <li><a href="{% url 'core:new-post' %}" class="drop-nav-item">Create Post</a></li>
                             <li><a href="#" class="drop-nav-item">Settings</a></li>
                             <hr/>
-                            <li><a href="#" class="drop-nav-item">Sign Out</a></li>
+                            <li><a href="{% url 'logout' %}" class="drop-nav-item">Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
                 {% else %}
                 <div class="authentication-top-nav">
-                    <a href="#" class="top-nav-login">Login</a>
-                    <a href="#" class="top-nav-create">Create account</a>
+                    <a href="{% url 'accounts:login' %}" class="top-nav-login">Login</a>
+                    <a href="{% url 'accounts:register' %}" class="top-nav-create">Create account</a>
                 </div>
                 {% endif %}
             </div>
         </div>
     </header>
-    {% block body %}{% endblock %}
+    
+    <div class="body-wrapper">
+        {% block body %}{% endblock %}
+    </div>
 
     <script>
+        // dropdown for user navigation.
         function toogleDropdown() {
             document.getElementById('dropdown').classList.toggle('dropdown-visibility')
         }
@@ -82,6 +86,13 @@
                     }
                 }
             }
+        }
+
+        // function to disable home page search bar when searchbar is empty.
+        let searchButton = document.getElementById('searchButton')
+
+        function searchEmpty(){
+            searchButton.disabled = false
         }
     </script>
 </body>

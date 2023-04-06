@@ -28,6 +28,10 @@ body {
     font-family: var(--primary-font);
 }
 
+.body-wrapper{
+    margin-top: 70px;
+}
+
 .main-header {
     height: 60px;
     width: 100%;
@@ -289,6 +293,13 @@ body {
 .dropdown-nav ul li:hover, .drop-nav-item:hover{
     background-color: var(--bg-color-sec);
 }
+
+.dropdown-nav ul .nav-userinfo, 
+.dropdown-nav ul .nav-userinfo:hover{
+    cursor: default;
+    background-color: inherit;
+}
+
 .bold{
     font-weight: 500 !important;
 }

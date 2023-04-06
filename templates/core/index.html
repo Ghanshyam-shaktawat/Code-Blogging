@@ -2,7 +2,7 @@
 {% block body %}
 <div style="margin-top: 60px">
     {% for post in posts %}
-        <a href="{% url 'detail' post.slug %}"><h1>{{ post.title }}</h1></a>
+        <a href="{% url 'core:detail' post.author.username post.slug %}"><h1>{{ post.title }}</h1></a>
         <p>{{ post.snippets }}</p>
         {% endfor %}
     {% endblock %}

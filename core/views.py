@@ -4,7 +4,9 @@ from django.urls import reverse
 from core.models import Post
 from django.db.models import Q
 from core.forms import NewPostForm
-import bloggingApp.settings as settings
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from bloggingApp import settings
 
 def index(request):
     posts = Post.objects.filter(status=1).order_by('-created_on')
@@ -12,20 +14,22 @@ def index(request):
     return render(request, 'core/index.html', context)
 
 
-def detail_post(request,slug):
-    post = Post.objects.get(slug=slug)
+def detail_post(request, author, slug):
+    post = get_object_or_404(Post, author__username=author, slug=slug)
     context = {
-        'post': post,
+        'post': post
     }
     return render(request, 'core/detail.html', context)
 
-
+@login_required
 def new_post(request):    
     if request.method == 'POST':
         form = NewPostForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect(reverse('detail', args=[request.POST.get('slug')]))
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect(reverse('core:detail', args=[request.user.username, request.POST.get('slug')]))
     else:
         form = NewPostForm()
         context = {'form': form}
@@ -36,9 +40,16 @@ def search(request):
     results = []
     if request.method == 'GET':
         query = request.GET.get('q')
-        if not query:
-            raise Http404
-
+        
     results = Post.objects.filter(Q(title__icontains=query), status=1).order_by('-created_on')
     return render(request, 'core/search.html', {'object_list': results, 'query': query})
         
+        
+def profile(request, profile):
+    user_profile = get_object_or_404(User, username=profile)
+    posts = Post.objects.filter(author__username=profile, status=1).order_by('-created_on')
+    context = {
+        'profile': user_profile,
+        'posts': posts,
+    }
+    return render(request, 'core/profile.html', context)

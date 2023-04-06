@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+
+{% block body %}
+<h1>{{ profile.username }}</h1>
+<br>
+{% for post in posts %}
+    {{ post.title }}
+    <br>
+{% endfor %}
+{% endblock %}

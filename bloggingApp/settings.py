@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #My apps:
     'core',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +127,7 @@ STATICFILES_DIR = [BASE_DIR / 'static']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH = True
+
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'core:index'
+LOGOUT_REDIRECT_URL = 'core:index'

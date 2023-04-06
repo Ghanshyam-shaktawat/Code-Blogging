@@ -14,7 +14,7 @@
             <header class="main-head">
                 <h1 class="main-title">{{ post.title }}</h1>
                 <p class="main-snip">Snippets</p>
-                <span>{{ post.created_on }}</span>
+                <span>{{ post.created_on }} Author- {{ post.author }}</span>
             </header>
             <div class="main-body">
                 {{ post.body | convert_to_markdown | safe }}
