@@ -13,7 +13,8 @@ STATUS = [
 #     """
 #     Using predefined user model and overriding and adding new filds to user model
 #     """
-#     email = models.EmailField(_("Email"), unique=True, max_length=70)
+    # email = models.EmailField(_("Email"), unique=True, null=False, max_length=70)
+#     bio = models.CharField(max_length=220, null=True)
 
 class Post(models.Model):
     """Model for Blog Post"""

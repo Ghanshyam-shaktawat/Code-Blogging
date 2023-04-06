@@ -3,5 +3,7 @@ from .models import Post
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'status', 'created_on']
+    list_filter = ['status']
+    prepopulated_fields = {'slug': ('title',)}
 
-admin.site.register(Post)
+admin.site.register(Post, PostAdmin)

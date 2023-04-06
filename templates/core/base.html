@@ -1,19 +1,89 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
-    <title>{% block title %}{% endblock %}</title>
+    <!-- My css files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'core/css/style.css' %}">
+    {% block styles %}{% endblock %}
+
+    <!-- Title for every page -->
+    <title>{% block title %}Code Blog{% endblock %}</title>
 </head>
+
 <body>
+    <!-- Main nav -->
     <header class="main-header">
-        <div class="logo-container">
-            <a href="{% url 'index' %}" class="main-logo">Web Blogger</a>
+        <div class="header-container">
+            <a href="{% url 'index' %}" class="main-logo">Code Blog</a>
+            <div class="header-search">
+                <form method="get" action="/search" autocomplete="off" class="search-form">
+                    <div class="form-wrapper">
+                        <input type="text" id="my-search" placeholder="Search..." name="q">
+                        <button type="submit" class="search-but">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-search search-but-icon"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="user-sec">
+                {% if user.is_authenticated %}
+                <div class="authentication-top-nav">
+                    <a href="{% url 'new-post' %}" class="nav-new-post">Create Post</a>
+                    <img src="{% static 'core/images/default.jpg' %}" class="nav-user-img" id="dropbtn"
+                        onclick="toogleDropdown()">
+                    <div class="dropdown-nav" id="dropdown">
+                        
+                        <ul>
+                            <li>
+                                <span>Singed in as</span><br>
+                                <span class="bold">@{{ user.username }}</span>
+                            </li>
+                            <hr/>
+                            <li><a href="#" class="drop-nav-item">Dashboard</a></li>
+                            <li><a href="#" class="drop-nav-item">Your Profile</a></li>
+                            <li><a href="{% url 'new-post' %}" class="drop-nav-item">Create Post</a></li>
+                            <li><a href="#" class="drop-nav-item">Settings</a></li>
+                            <hr/>
+                            <li><a href="#" class="drop-nav-item">Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+                {% else %}
+                <div class="authentication-top-nav">
+                    <a href="#" class="top-nav-login">Login</a>
+                    <a href="#" class="top-nav-create">Create account</a>
+                </div>
+                {% endif %}
+            </div>
         </div>
     </header>
     {% block body %}{% endblock %}
+
+    <script>
+        function toogleDropdown() {
+            document.getElementById('dropdown').classList.toggle('dropdown-visibility')
+        }
+        window.onclick = function (event) {
+            if (!event.target.matches('#dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-nav");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('dropdown-visibility')) {
+                        openDropdown.classList.remove('dropdown-visibility');
+                    }
+                }
+            }
+        }
+    </script>
 </body>
+
 </html>

@@ -1,9 +1,9 @@
 {% extends 'core/base.html' %}
 {% block body %}
-<a href="{% url 'new-post' %}">Create new post</a>
+<div style="margin-top: 60px">
     {% for post in posts %}
-    <a href="{% url 'detail' post.slug %}"><h1>{{ post.title }}</h1></a>
-    <p>{{ post.snippets }}</p>
-    <p>{{ post.slug }}</p>
-    {% endfor %}
-{% endblock %}
+        <a href="{% url 'detail' post.slug %}"><h1>{{ post.title }}</h1></a>
+        <p>{{ post.snippets }}</p>
+        {% endfor %}
+    {% endblock %}
+</div>
