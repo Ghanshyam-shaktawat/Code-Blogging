@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponseRedirect, Http404, HttpResponse
+from django.http import Http404, HttpResponse
 from django.urls import reverse
 from core.models import Post
 from django.db.models import Q
 from core.forms import NewPostForm
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from bloggingApp import settings
+
+User = get_user_model()
 
 def index(request):
     posts = Post.objects.filter(status=1).order_by('-created_on')
@@ -23,7 +24,7 @@ def detail_post(request, author, slug):
 
 
 @login_required
-def new_post(request):    
+def new_post(request):
     if request.method == 'POST':
         form = NewPostForm(request.POST)
         if form.is_valid():
@@ -55,7 +56,7 @@ def edit_post(request, author, slug):
         if form.is_valid():
             form.save()
             return redirect(reverse('core:detail', args=[request.user.username, post.slug]))
-    
+
     context = {'post': post, 'form': form}
     return render(request, 'core/edit.html', context)        
 
@@ -79,7 +80,7 @@ def search(request):
         
     results = Post.objects.filter(Q(title__icontains=query) | Q(), status=1).order_by('-created_on')
     context = {
-        'object_list': results, 'query': quer
+        'object_list': results, 'query': query
     }
     return render(request, 'core/search.html', context)
         

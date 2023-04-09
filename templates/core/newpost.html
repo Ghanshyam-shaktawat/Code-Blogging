@@ -1,3 +1,9 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}New Post - Code Block{% endblock %}
+
+{% block body %}
 <h1>Create new post</h1>
 
 <form method="post">
@@ -5,3 +11,4 @@
     {{ form.as_p }}
     <button type="submit">Submit</button>
 </form>
+{% endblock %}

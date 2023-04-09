@@ -2,9 +2,15 @@
 
 {% block body %}
 <h1>{{ profile.username }}</h1>
+<p>{{ profile.bio }}</p>
+<p>{{ profile.gender }}</p>
+<p>{{ profile.date_joined }}</p>
+{% if profile.display_email == True %}
+<p>Email - {{ profile.email }}</p>
+{% endif %}
 <br>
 {% for post in posts %}
     {{ post.title }}
-    <br>
+<br>
 {% endfor %}
 {% endblock %}

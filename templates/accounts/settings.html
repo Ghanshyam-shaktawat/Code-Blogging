@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Settings - Code Block{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'accounts/css/settings.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="main">
+    <div class="main-wrapper">
+        <span class="sett-title">Settings for @{{ user.username }}</span>
+        <div class="layout">
+            <p>User Info</p>
+            <form method='post'>
+                {% csrf_token %}
+                {{ form.as_ul }}
+                <button name="submet">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

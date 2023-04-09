@@ -1,3 +1,17 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
-# Create your models here.
+GENDER = [
+    ('n', 'not specified'),
+    ('f', 'female'),
+    ('m', 'male')
+]
+
+class MyUserModel(AbstractUser):
+    email = models.EmailField(_("Email"))
+    gender = models.CharField(max_length=10, choices=GENDER, default='n')
+    bio = models.CharField(max_length=200, blank=True, null=True)
+    website_link = models.CharField(max_length=100, blank=True, null=True)
+    display_email = models.BooleanField(default=False)

@@ -128,6 +128,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH = True
 
+# Authentication Handling
+AUTH_USER_MODEL = 'accounts.MyUserModel'
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'core:index'
 LOGOUT_REDIRECT_URL = 'core:index'
