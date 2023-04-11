@@ -1,21 +1,25 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from .models import MyUserModel
+from django.contrib.auth import get_user_model
 
 
-class CustomUserCreationForm(UserCreationForm):
+class RegistrationForm(UserCreationForm):
     class Meta:
         model = MyUserModel
         fields = ('username',)
 
-class CustomUserChangeForm(UserChangeForm):
-    username = forms.CharField(required=True, label="Your Username")
-    email = forms.EmailField(required=True, label="Your Email")
-    display_email = forms.BooleanField(required=False, label="Display email on profile")
-    first_name = forms.CharField(label="First Name")
-    last_name = forms.CharField(label="Last Name")
-    password = None
+class LoginForm(AuthenticationForm):
+    username = forms.CharField()
+
+class EditUserForm(UserChangeForm):
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':'form-field'}))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class':'form-field'}))
+    display_email = forms.CharField(required=False, widget=forms.CheckboxInput(attrs={'class':'form-field'}))
+    full_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':'form-field'}))
+    bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'class':'form-field'}))
+    website_link = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-field'}))
 
     class Meta:
-        model = MyUserModel
-        fields = ('first_name', 'last_name', 'username', 'email', 'display_email', 'bio', 'gender')
+        model = get_user_model()
+        fields = ('username', 'email', 'display_email', 'full_name', 'bio', 'gender')

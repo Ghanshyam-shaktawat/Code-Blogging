@@ -12,11 +12,33 @@
     <div class="main-wrapper">
         <span class="sett-title">Settings for @{{ user.username }}</span>
         <div class="layout">
-            <p>User Info</p>
-            <form method='post'>
+            <form method='POST'>
                 {% csrf_token %}
-                {{ form.as_ul }}
-                <button name="submet">Update Profile</button>
+                <div>
+                    <label for="username" class="field-label">Username</label>
+                    {{ form.username }}
+                </div>
+                <div>
+                    <label for="email" class="field-label">Email</label>
+                    {{ form.email }}
+                </div>
+                <div>
+                    {{ form.display_email }}
+                    <label for="display_email" class="field-label">Display Email on Profile</label>
+                </div>
+                <div>
+                    <label for="fullname" class="field-label">Full Name</label>
+                    {{ form.full_name }}
+                </div>
+                <div>
+                    <label for="gender" class="field-label">Gender</label>
+                    {{ form.gender }}
+                </div>
+                <div>
+                    <label for="bio" class="field-label">Bio</label><br>
+                    {{ form.bio }}
+                </div>
+                <button name="submit">Update Profile</button>
             </form>
         </div>
     </div>

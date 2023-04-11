@@ -12,7 +12,9 @@
     --visibility: hidden
 }
 
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -26,10 +28,8 @@ body {
 body {
     background-color: var(--bg-color-sec);
     font-family: var(--primary-font);
-}
-
-.body-wrapper{
-    margin-top: 70px;
+    width: 100%;
+    height: 100%;
 }
 
 .main-header {
@@ -288,7 +288,6 @@ body {
 
 .dropdown-nav li span{
     margin: 0;
-
 }
 
 .dropdown-nav ul li:hover, .drop-nav-item:hover{
@@ -303,4 +302,11 @@ body {
 
 .bold{
     font-weight: 500 !important;
+}
+
+.body-wrapper{
+    margin-top: 60px;
+    width: 100%;
+    min-height: calc(100vh - 60px);
+    height: 100%;
 }

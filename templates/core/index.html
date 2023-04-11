@@ -1,9 +1,39 @@
 {% extends 'core/base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
+{% endblock %}
+
 {% block body %}
-<div style="margin-top: 60px">
-    {% for post in posts %}
-        <a href="{% url 'core:detail' post.author.username post.slug %}"><h1>{{ post.title }}</h1></a>
-        <p>{{ post.snippets }}</p>
-        {% endfor %}
-    {% endblock %}
+<div class="center-flex">
+    <div class="wrapper">
+        <section class="left-nav">
+            <ul>
+                <li>Home</li>
+                <li>About</li>
+                <li>Contact Us</li>
+            </ul>
+        </section>
+        <main class="index-articles">
+            {% for post in posts %}
+            <article class="main-post">
+                <div>
+                    <span>{{ post.author.full_name }}</span>
+                    <p>{{ post.created_on|date }}</p>
+                </div>
+                <div>
+                    <h3><a href="{% url 'core:detail' post.author.username post.slug %}"">{{ post.title }}</a></h3>
+                </div>
+                <div>
+                    {{ post.snippets }}
+                </div>
+            </article>
+            {% endfor %}
+        </main>
+        <aside class="right-sidebar">
+            <p>Sidebar</p>
+        </aside>
+    </div>
 </div>
+{% endblock %}
