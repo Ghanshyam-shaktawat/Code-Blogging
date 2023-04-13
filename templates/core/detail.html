@@ -24,5 +24,14 @@
                 {{ post.body | convert_to_markdown | safe }}
             </div>
         </article>
+        <div class="comments">
+            <h2>Comments..</h2>
+            {% if post.comments.all %}
+                {% for comment in post.comments.all %}
+                    <i>{{ comment.user }}</i>
+                    <p>{{ comment.body }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

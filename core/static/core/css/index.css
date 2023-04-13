@@ -18,8 +18,11 @@
 }
 
 .left-nav{
-    width: 20%;
+    width: 220px;
     background-color: aqua;
+    /* display: block; */
+    position: fixed;
+    height: calc(100vh - 60px);
 }
 
 .right-nav{
@@ -29,6 +32,7 @@
 
 /* Center articles styling */
 .index-articles{
+    margin-left: 20%;
     padding: 20px 0;
     width: 60%;
     display: flex;

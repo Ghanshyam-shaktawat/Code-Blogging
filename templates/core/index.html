@@ -30,6 +30,20 @@
                 </div>
             </article>
             {% endfor %}
+            {% for post in posts %}
+            <article class="main-post">
+                <div>
+                    <span>{{ post.author.full_name }}</span>
+                    <p>{{ post.created_on|date }}</p>
+                </div>
+                <div>
+                    <h3><a href="{% url 'core:detail' post.author.username post.slug %}"">{{ post.title }}</a></h3>
+                </div>
+                <div>
+                    {{ post.snippets }}
+                </div>
+            </article>
+            {% endfor %}
         </main>
         <aside class="right-sidebar">
             <p>Sidebar</p>
