@@ -16,4 +16,18 @@ Search results for {{ query }} - Code Blog
     {% endfor %}
 {% endif %}
 </div>
+<hr>
+<div class="search-body">
+    <h1>{{ users | length }}</h1>
+
+    {% if users|length == 0 %}
+    <p>NO RESULTS FOUND FOR '{{ query }}'</p>
+    <p>¯\_(ツ)_/¯</p>
+    {% else %}
+    {% for u in users %}
+    <p>{{ u.full_name }}</p>
+    <p>{{ u.username }}</p>
+    {% endfor %}
+    {% endif %}
+</div>
 {% endblock %}

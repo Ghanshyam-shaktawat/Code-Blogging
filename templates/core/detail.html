@@ -26,6 +26,17 @@
         </article>
         <div class="comments">
             <h2>Comments..</h2>
+            <h4>add New comment</h4>
+            <form method="post">
+                {% csrf_token %}
+                <textarea name="body" class="comment-body"></textarea>
+                {% if user.is_authenticated %}
+                    <button type="submit">Comment</button>
+                {% else %}
+                    <button type="submit" disabled>Comment</button>
+                {% endif %}
+            </form>
+
             {% if post.comments.all %}
                 {% for comment in post.comments.all %}
                     <i>{{ comment.user }}</i>

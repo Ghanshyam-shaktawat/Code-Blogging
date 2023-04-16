@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, HttpResponse
 from django.urls import reverse
-from core.models import Post
+from core.models import Post, Comment
 from django.db.models import Q
-from core.forms import NewPostForm
+from core.forms import NewPostForm, CommentForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 
@@ -16,11 +16,24 @@ def index(request):
 
 
 def detail_post(request, author, slug):
+    context = {}
     post = get_object_or_404(Post, author__username=author, slug=slug)
-    context = {
-        'post': post
-    }
-    return render(request, 'core/detail.html', context)
+    context['post'] = post
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.user = request.user
+            comment.save()
+            return redirect(reverse('core:detail', args=[post.author, post.slug]))
+        
+    else:
+        form = CommentForm()
+        context['form'] = form  
+        return render(request, 'core/detail.html', context)
+    
 
 
 @login_required
@@ -77,10 +90,13 @@ def search(request):
     results = []
     if request.method == 'GET':
         query = request.GET.get('q')
-        
-    results = Post.objects.filter(Q(title__icontains=query) | Q(), status=1).order_by('-created_on')
+
+    search_posts = Post.objects.filter(Q(title__icontains=query) | Q(), status=1).order_by('-created_on')
+
+    search_user = User.objects.filter(Q(username__icontains=query) | Q(full_name__icontains=query))
+
     context = {
-        'object_list': results, 'query': query
+        'object_list': search_posts, 'users': search_user, 'query': query
     }
     return render(request, 'core/search.html', context)
         

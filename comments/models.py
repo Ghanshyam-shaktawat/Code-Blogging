@@ -10,5 +10,9 @@ class Comment(models.Model):
     body = models.CharField(max_length=200)
     comment_date = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-comment_date']
+
     def __str__(self):
         return '%s commented by- %s' % (self.post.title, self.user)
+    
