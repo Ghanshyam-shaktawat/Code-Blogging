@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'accounts',
+    'django_browser_reload',
+    'fontawesomefree',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +50,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # ... Auto reloage page on broswer when html changes are made
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    # ...
 ]
 
 ROOT_URLCONF = 'bloggingApp.urls'
@@ -74,10 +79,21 @@ WSGI_APPLICATION = 'bloggingApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'codeblog',
+        'USER': 'admin',
+        'PASSWORD': 'Ghanshyam',
+        'HOST': 'localhost',
+        'POST': '',
     }
 }
 
@@ -132,3 +148,7 @@ AUTH_USER_MODEL = 'accounts.MyUserModel'
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'core:index'
 LOGOUT_REDIRECT_URL = 'core:index'
+
+# Handlline media files
+MEDIA_ROOT = BASE_DIR / 'media' 
+MEDIA_URL = '/media/'

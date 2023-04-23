@@ -6,48 +6,62 @@
 {% endblock %}
 
 {% block body %}
-<div class="center-flex">
-    <div class="wrapper">
-        <section class="left-nav">
-            <ul>
-                <li>Home</li>
-                <li>About</li>
-                <li>Contact Us</li>
-            </ul>
-        </section>
-        <main class="index-articles">
+<div class="grid-wrapper">
+    <nav class="right-nav">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li>Categories
+                <ul>
+                    <li>Python</li>
+                    <li>C/C++</li>
+                    <li>Ruby</li>
+                    <li>Java</li>
+                    <li>Javascript</li>
+                    <li>Html/Css</li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <main class="main-block">
+        <span class="latest-post-span">Latest Post</span>
+        <div class="articles-flex">
             {% for post in posts %}
-            <article class="main-post">
-                <div>
-                    <span>{{ post.author.full_name }}</span>
-                    <p>{{ post.created_on|date }}</p>
+            <article class="main-articles">
+                <div class="post-img">
+                    {% if post.cover_image %}
+                    <img src="{{ post.cover_image.url }}">
+                    {% endif %}
                 </div>
-                <div>
-                    <h3><a href="{% url 'core:detail' post.author.username post.slug %}"">{{ post.title }}</a></h3>
-                </div>
-                <div>
-                    {{ post.snippets }}
+                <div class="inner-padding">
+                    <div class="author-info">
+                        <a href="{% url 'core:profile' post.author %}" class="flex-row author-info-link">
+                            <img src="{{ post.author.pfp.url }}" class="author-img" onclick="">
+                            <span>{{ post.author.full_name }}</span>
+                        </a>
+                        <p>|</p>
+                        <p>{{ post.created_on|date }}</p>
+                    </div>
+                    <div class="post-info">
+                        <a href="{% url 'core:detail' post.author post.slug %}">
+                            <h2>{{ post.title }}</h2>
+                        </a>
+                        <p class="post-snippet">{{ post.snippets }}</p>
+                    </div>
+                    <div class="flex-row flex-gap">
+                        <div class="flex-row gap-10 pointer">
+                            <i class="fa-solid fa-heart" style="color: #ff0000;"></i>5 Likes
+                        </div>
+                        <div class="flex-row gap-10 pointer">
+                            <i class="fa-regular fa-comment"></i>{{ post.comments.all|length }} Comment{{ post.comments.all|pluralize }}
+                        </div>
+                    </div>
                 </div>
             </article>
             {% endfor %}
-            {% for post in posts %}
-            <article class="main-post">
-                <div>
-                    <span>{{ post.author.full_name }}</span>
-                    <p>{{ post.created_on|date }}</p>
-                </div>
-                <div>
-                    <h3><a href="{% url 'core:detail' post.author.username post.slug %}"">{{ post.title }}</a></h3>
-                </div>
-                <div>
-                    {{ post.snippets }}
-                </div>
-            </article>
-            {% endfor %}
-        </main>
-        <aside class="right-sidebar">
-            <p>Sidebar</p>
-        </aside>
-    </div>
+        </div>
+    </main>
+    <aside class="right-sec">Right</aside>
 </div>
 {% endblock %}

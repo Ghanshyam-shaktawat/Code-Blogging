@@ -12,7 +12,7 @@
     <div class="main-wrapper">
         <span class="sett-title">Settings for @{{ user.username }}</span>
         <div class="layout">
-            <form method='POST'>
+            <form method='POST' enctype="multipart/form-data">
                 {% csrf_token %}
                 <div>
                     <label for="username" class="field-label">Username</label>
@@ -37,6 +37,13 @@
                 <div>
                     <label for="bio" class="field-label">Bio</label><br>
                     {{ form.bio }}
+                </div>
+                <div>
+                    <label for="pfp" class="field-label">Your Profile Image</label><br>
+                    <div style="display: flex; flex-direction: row; gap: 20px; align-items: center;">
+                        <img src="{{ user.pfp.url }}" class="pfp-change" style="width: 70px; height:70px; object-fit: cover; border-radius: 50%;">
+                        {{ form.pfp }}
+                    </div>
                 </div>
                 <button name="submit">Update Profile</button>
             </form>

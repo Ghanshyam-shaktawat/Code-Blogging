@@ -18,6 +18,7 @@ class MyUserModel(AbstractUser):
     bio = models.CharField(max_length=200, blank=True, null=True)
     website_link = models.CharField(max_length=100, blank=True, null=True)
     display_email = models.BooleanField(default=False)
+    pfp = models.ImageField(upload_to='images/users/', default="../media/images/users/default.jpg", null=True)
 
 def __str__(self):
     return self.username

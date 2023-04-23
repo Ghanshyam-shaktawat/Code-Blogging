@@ -6,7 +6,7 @@ class CustomAdminModel(UserAdmin):
     list_display = ['username', 'email', 'last_login', 'is_staff']
     fieldsets = [
         ("Authentication", {"fields": ["username", "email", "password"]}),
-        ("Personal Info", {"fields": ["full_name", "gender", "bio", "website_link", "display_email"]}),
+        ("Personal Info", {"fields": ["full_name", "gender", "bio", "website_link", "display_email", "pfp"]}),
         ("Permissons", {"fields": ["is_superuser", "is_staff", "is_active", "groups", "user_permissions"]}),
         ("Login Status", {"fields": ["date_joined", "last_login"]})
         ]

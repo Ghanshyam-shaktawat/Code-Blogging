@@ -5,9 +5,28 @@ from django.contrib.auth import get_user_model
 
 
 class RegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True, label='Your Email', widget=forms.EmailInput(attrs={'class':'field', 'placeholder':'Your Email'}))
+    full_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':'field', 'placeholder':'Your Full Name'}))
+    
     class Meta:
-        model = MyUserModel
-        fields = ('username',)
+        model = get_user_model()
+        fields = ('username','email', 'full_name', 'password1', 'password2')
+        error_messages = {
+            'username':{
+                'unique': 'This username already exists. Try something else!',
+                'required' : 'Enter your username'
+                }
+        }
+        
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] = 'field'
+        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+        self.fields['password1'].widget.attrs['class'] = 'field'
+        self.fields['password1'].widget.attrs['placeholder'] = 'Password'
+        self.fields['password2'].widget.attrs['class'] = 'field'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField()
@@ -19,7 +38,8 @@ class EditUserForm(UserChangeForm):
     full_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':'form-field'}))
     bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'class':'form-field'}))
     website_link = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-field'}))
+    pfp = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class':'form-field'}))
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'email', 'display_email', 'full_name', 'bio', 'gender')
+        fields = ('username', 'email', 'display_email', 'full_name', 'bio', 'gender', 'pfp')

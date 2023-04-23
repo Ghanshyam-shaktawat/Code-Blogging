@@ -18,9 +18,14 @@ class Post(models.Model):
     created_on = models.DateTimeField('Date Published', auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post')
+    cover_image = models.ImageField(upload_to='images/post/', null=True, blank=True)
+    likes = models.ManyToManyField(User, related_name='post_likes')
     
     def __str__(self):
         return self.title
+    
+    def total_likes(self):
+        return self.likes.count()
     
     def get_absolute_url(self):
         """It redirects to the detail page after an database entry"""
@@ -38,3 +43,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return '%s commented by- %s' % (self.post.title, self.user)
+    
+class Bookmark(models.Model):
+    bookmark_post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    bookmark_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookmarks')

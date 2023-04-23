@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, HttpResponse
 from django.urls import reverse
-from core.models import Post, Comment
+from core.models import Post, Comment, Bookmark
 from django.db.models import Q
 from core.forms import NewPostForm, CommentForm
 from django.contrib.auth import get_user_model
@@ -11,14 +11,18 @@ User = get_user_model()
 
 def index(request):
     posts = Post.objects.filter(status=1).order_by('-created_on')
-    context = {'posts': posts}
+    context = {
+        'posts': posts,
+        }
     return render(request, 'core/index.html', context)
 
 
 def detail_post(request, author, slug):
     context = {}
     post = get_object_or_404(Post, author__username=author, slug=slug)
+    total_likes = post.total_likes()
     context['post'] = post
+    context['likes'] = total_likes
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -87,7 +91,6 @@ def delete_post(request, author, slug):
         
 
 def search(request):
-    results = []
     if request.method == 'GET':
         query = request.GET.get('q')
 
@@ -109,3 +112,8 @@ def profile(request, profile):
         'posts': posts,
     }
     return render(request, 'core/profile.html', context)
+
+@login_required
+def my_bookmarks(request):
+    user_bookmarks = Bookmark.objects.filter(bookmark_by=request.user)
+    return render(request, 'core/bookmarks.html', {'bookmarks': user_bookmarks})
