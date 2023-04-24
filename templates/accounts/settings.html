@@ -8,37 +8,37 @@
 {% endblock %}
 
 {% block body %}
-<div class="main">
-    <div class="main-wrapper">
-        <span class="sett-title">Settings for @{{ user.username }}</span>
-        <div class="layout">
-            <form method='POST' enctype="multipart/form-data">
+<div class="main-settings">
+    <div class="main-wrapper col gap-10">
+        <span class="sett-title h3">Settings for @{{ user.username }}</span>
+        <div class="layout mt-4">
+            <form method='POST' enctype="multipart/form-data" class="d-flex flex-column column-gap-3 gap-10">
                 {% csrf_token %}
-                <div>
+                <div class="row">
                     <label for="username" class="field-label">Username</label>
                     {{ form.username }}
                 </div>
-                <div>
+                <div class="row">
                     <label for="email" class="field-label">Email</label>
                     {{ form.email }}
                 </div>
-                <div>
+                <div class="row">
                     {{ form.display_email }}
                     <label for="display_email" class="field-label">Display Email on Profile</label>
                 </div>
-                <div>
+                <div class="row">
                     <label for="fullname" class="field-label">Full Name</label>
                     {{ form.full_name }}
                 </div>
-                <div>
+                <div class="row">
                     <label for="gender" class="field-label">Gender</label>
                     {{ form.gender }}
                 </div>
-                <div>
+                <div class="row">
                     <label for="bio" class="field-label">Bio</label><br>
                     {{ form.bio }}
                 </div>
-                <div>
+                <div class="row">
                     <label for="pfp" class="field-label">Your Profile Image</label><br>
                     <div style="display: flex; flex-direction: row; gap: 20px; align-items: center;">
                         <img src="{{ user.pfp.url }}" class="pfp-change" style="width: 70px; height:70px; object-fit: cover; border-radius: 50%;">

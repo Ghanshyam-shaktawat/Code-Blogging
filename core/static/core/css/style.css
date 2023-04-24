@@ -73,6 +73,10 @@ body {
     align-items: center;
 }
 
+.main-logo:hover{
+    color: #fff;
+}
+
 /* center nav sec */
 .header-search {
     margin: 0 10px;

@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <header class="header d-flex justify-content-between">
+    <header class="header d-flex justify-content-between mt-1 mb-1 w-100">
         <span>
             <a href="{% url 'core:index' %}" class="main-logo">Code Blog</a>
         </span>
@@ -31,15 +31,25 @@
     </header>
     <main>
         <form method="post" class="new-post-form row gap-3 h-100" autocomplete="off" enctype="multipart/form-data">
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger w-100">
+                            <strong>{{error}}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+
             {% csrf_token %}
-            <div class="right-sec container col">
-                <div class="mb-3">
-                    <input type="text" name="title" id="form-title" class="form-control border-0" placeholder="Post Title here...">
-                    <input type="text" name="snippets" id="form-snippets" class="form-control border-0" placeholder="Post Snippet...">
+            <div class="right-sec col">
+                <div class="container-title mb-3">
+                    <input type="text" name="title" id="form-title" class="form-control border-0" placeholder="Post Title here..." value="{{ filledform.title.value }}">
+                    <input type="text" name="snippets" id="form-snippets" class="form-control border-0" placeholder="Post Snippet..." value="{{ filledform.snippets.value }}">
                 </div>
                 <hr/>
-                <div class="mb-3 container-fit">
-                    <textarea class="form-control form-body border-0 form-body" id="exampleFormControlTextarea1" rows="3" placeholder="Write your post content here"></textarea>
+                <div class="mb-3 container-body">
+                    <textarea name="body" class="form-control form-body border-0 h-100" id="form-body" rows="3" placeholder="Write your post content here">{{ filledform.body.value }}</textarea>
                     <div class="form-buttons mt-3">
                         <button type="submit" name="status" value="1" class="btn btn-primary me-3">Submit</button>
                         <button type="submit" name="status" value="0" class="btn btn-secondary">Save as draft</button>
@@ -48,12 +58,16 @@
             </div>
             <div class="left-sec col-lg-4">
                 <div class="image-upload">
-                    <label for="formFile" class="form-label">Upload a post featured image</label>
-                    <input class="form-control" type="file" id="formFile" name="cover_image">
+                    <label for="cover_image" class="form-label">Upload a post featured image</label>
+                    <input class="form-control" type="file" name="cover_image" id="id_cover_image">
                 </div>
                 <div class="mt-4">
-                    <label for="formFile" class="form-label">Upload a post featured image</label>
-                    <input class="form-control" type="text" id="formsnull" placeholder="You post Slug..." name="slug">
+                    <label for="slug" class="form-label">Post url (Best pratice to keep it similar to Title)</label>
+                    <input class="form-control" type="text" id="form-slug" placeholder="You post Slug..." name="slug" value="{{ filledform.slug.value }}">
+                </div>
+                <div class="mt-4">
+                    <label for="" class="form-label">Category</label>
+                    <input type="text" class="form-control" id="form-category" name="category" disabled>
                 </div>
             </div>
         </form>

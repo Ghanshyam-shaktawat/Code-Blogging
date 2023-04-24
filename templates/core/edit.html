@@ -3,7 +3,7 @@
 {% block body %}
 <P>Add a new post:</P>
 
-<form method='post'>
+<form method='post' enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button name="submet">Update post</button>

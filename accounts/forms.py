@@ -32,13 +32,13 @@ class LoginForm(AuthenticationForm):
     username = forms.CharField()
 
 class EditUserForm(UserChangeForm):
-    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':'form-field'}))
-    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class':'form-field'}))
-    display_email = forms.CharField(required=False, widget=forms.CheckboxInput(attrs={'class':'form-field'}))
-    full_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':'form-field'}))
-    bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'class':'form-field'}))
-    website_link = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-field'}))
-    pfp = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class':'form-field'}))
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':'form-control'}))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class':'form-control'}))
+    display_email = forms.CharField(required=False, widget=forms.CheckboxInput(attrs={'class':''}))
+    full_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':'form-control'}))
+    bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'class':'form-control'}))
+    website_link = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
+    pfp = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class':'form-control'}))
 
     class Meta:
         model = get_user_model()

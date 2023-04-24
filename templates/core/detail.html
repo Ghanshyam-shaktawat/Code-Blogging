@@ -9,7 +9,7 @@
 {% block title %}{{ post.title }} - Code Blog{% endblock %}
 
 {% block body %}
-    <div class="body-wrapper">
+    <div class="wrapper">
         {% if post.author.username == user.username %}
         <a href="{% url 'core:edit-post' user.username post.slug %}">Edit Post</a>
         <a href="{% url 'core:delete-post' user.username post.slug %}">Delete post</a>

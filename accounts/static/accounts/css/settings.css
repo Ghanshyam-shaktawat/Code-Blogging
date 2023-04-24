@@ -1,24 +1,10 @@
-.main{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.sett-title{
-    font-size: 32px;
-    text-align: left;
-    font-family: var(--primary-font);
-    /* align-self: flex-start; */
+.main-settings{
+    max-width: 700px;
+    width: 100%;
+    margin: auto;
 }
 
 .main-wrapper{
-    max-width: 780px;
-    width: 100%;
-    padding: 20px 20px;
     background-color: var(--bg-color-prim);
-    border-radius: 8px;
-}
-.layout{
-    
+    padding: 40px;
 }

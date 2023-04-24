@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 app_name = 'core'
@@ -9,6 +9,12 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('<slug:profile>/', views.profile, name='profile'),
     path('<slug:author>/<slug:slug>/', views.detail_post, name='detail'),
-    path('<slug:author>/<slug:slug>/edit', views.edit_post, name='edit-post'),
-    path('<slug:author>/<slug:slug>/delete-confirm', views.delete_post, name='delete-post'),
+    path('<slug:author>/<slug:slug>/', 
+        include(
+            [
+                path('edit', views.edit_post, name='edit-post'),
+                path('delete-confirm', views.delete_post, name='delete-post'),
+            ]
+        ),
+    ),
 ]

@@ -6,8 +6,8 @@ User = settings.AUTH_USER_MODEL
 
 STATUS = [
     (0, 'draft'),
-    (1, 'publish')
-]    
+    (1, 'publish'),
+]
 
 class Post(models.Model):
     """Model for Blog Post"""
@@ -19,7 +19,7 @@ class Post(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post')
     cover_image = models.ImageField(upload_to='images/post/', null=True, blank=True)
-    likes = models.ManyToManyField(User, related_name='post_likes')
+    likes = models.ManyToManyField(User, related_name='post_likes', blank=True)
     
     def __str__(self):
         return self.title
@@ -30,7 +30,7 @@ class Post(models.Model):
     def get_absolute_url(self):
         """It redirects to the detail page after an database entry"""
         return reverse('core:detail', args=[str(self.user.username), str(self.slug)])
-    
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
