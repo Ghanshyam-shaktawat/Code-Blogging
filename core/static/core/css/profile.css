@@ -1,0 +1,19 @@
+.profile-header{
+    background-color: var(--secondary-color);
+    color: var(--bg-color-prim);
+}
+
+.head-section{
+    width: 800px;
+    margin: auto;
+}
+
+.profile-img{
+    height: 160px;
+    width: 160px;
+    object-fit: cover;
+}
+
+.profile-meta{
+    font-size: 0.8rem;
+}

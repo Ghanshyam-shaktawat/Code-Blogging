@@ -2,6 +2,7 @@ from django.shortcuts import redirect
 from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import views as auth_view
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from .forms import RegistrationForm, LoginForm, EditUserForm
 
@@ -51,3 +52,9 @@ class EditUserProfile(UpdateView):
     def get_object(self):
         """We use get object to return the current logged in user."""
         return self.request.user
+    
+    def form_valid(self, form):
+        self.object.save()
+        messages.success(self.request, "Changes made Successfully!")
+
+        return super().form_valid(form)

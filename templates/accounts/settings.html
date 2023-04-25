@@ -8,44 +8,84 @@
 {% endblock %}
 
 {% block body %}
+
+{% if messages %}
+<!-- Shows succes message when form is valid -->
+<div class="messages-box">
+    {% for message in messages %}
+    <div class="message alert alert-success" role="alert"> {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% for field in form %}
+{% if field.errors %}
+<!-- Shows error message when form is invalid -->
+<div class="messages-box">
+    {% for error in field.errors %}
+    <div class="message alert alert-danger" role="alert"> {{ error }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endfor %}
+
+
+
 <div class="main-settings">
-    <div class="main-wrapper col gap-10">
-        <span class="sett-title h3">Settings for @{{ user.username }}</span>
+    <div class="main-wrapper container gap-10">
+        <span class="set-title">Settings For @{{ user.username }}</span>
         <div class="layout mt-4">
-            <form method='POST' enctype="multipart/form-data" class="d-flex flex-column column-gap-3 gap-10">
+            <form method='POST' enctype="multipart/form-data" class="d-flex flex-column gap-3 mb-5" onclick="changeToSticky()">
                 {% csrf_token %}
-                <div class="row">
-                    <label for="username" class="field-label">Username</label>
-                    {{ form.username }}
-                </div>
-                <div class="row">
-                    <label for="email" class="field-label">Email</label>
-                    {{ form.email }}
-                </div>
-                <div class="row">
-                    {{ form.display_email }}
-                    <label for="display_email" class="field-label">Display Email on Profile</label>
-                </div>
-                <div class="row">
-                    <label for="fullname" class="field-label">Full Name</label>
-                    {{ form.full_name }}
-                </div>
-                <div class="row">
-                    <label for="gender" class="field-label">Gender</label>
-                    {{ form.gender }}
-                </div>
-                <div class="row">
-                    <label for="bio" class="field-label">Bio</label><br>
-                    {{ form.bio }}
-                </div>
-                <div class="row">
-                    <label for="pfp" class="field-label">Your Profile Image</label><br>
-                    <div style="display: flex; flex-direction: row; gap: 20px; align-items: center;">
-                        <img src="{{ user.pfp.url }}" class="pfp-change" style="width: 70px; height:70px; object-fit: cover; border-radius: 50%;">
-                        {{ form.pfp }}
+                <div class="personal-info d-flex flex-column gap-3">
+                    <span>Personal Info</span>
+                    <div>
+                        <label for="fullname" class="form-label">Full Name</label>
+                        {{ form.full_name }}
+                    </div>
+                    <div>
+                        <label for="username" class="form-label">Username</label>
+                        {{ form.username }}
+                    </div>
+                    <div>
+                        <label for="email" class="form-label">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div>
+                        {{ form.display_email }}
+                        <label for="display_email" class="form-check-label ms-2">Display Email on Profile</label>
+                    </div>
+                    <div>
+                        <label for="pfp" class="form-label">Profile Image</label><br>
+                        <div class="d-flex flex-row align-items-center gap-3">
+                            <img src="{{ user.pfp.url }}" class="user-img img-fluid img-thumbnail rounded-circle w-2">
+                            {{ form.pfp }}
+                        </div>
                     </div>
                 </div>
-                <button name="submit">Update Profile</button>
+                <div class="about-you d-flex flex-column gap-3">
+                    <span class="h5 me-3">About You</span>
+                    <div>
+                        <label for="gender" class="form-label me-3">Website Link</label>
+                        {{ form.website_link }}
+                    </div>
+                    <div>
+                        <label for="gender" class="form-label me-3">Location</label>
+                        {{ form.country }}
+                    </div>
+                    <div>
+                        <label for="gender" class="form-label me-3">Gender</label>
+                        {{ form.gender }}
+                    </div>
+                    <div>
+                        <label for="bio" class="form-label">Bio</label><br>
+                        {{ form.bio }}
+                    </div>
+                </div>
+                <div class="btn-div d-flex flex-column gap-3" id="btn-position">
+                    <button name="submit" class="btn btn-primary sub-btn">Save Changes</button>
+                </div>
             </form>
         </div>
     </div>

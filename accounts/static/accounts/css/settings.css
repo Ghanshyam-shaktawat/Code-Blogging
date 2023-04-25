@@ -1,10 +1,66 @@
-.main-settings{
+.main-settings {
     max-width: 700px;
     width: 100%;
     margin: auto;
+    padding-top: 20px;
 }
 
-.main-wrapper{
+.set-title {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.personal-info,
+.about-you,
+.btn-div {
     background-color: var(--bg-color-prim);
-    padding: 40px;
+    border-radius: 8px;
+    border: 1px solid #dadada;
+    padding: 40px 45px;
+}
+
+.personal-info>span,
+.about-you>span {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=file]:focus,
+input[type=file]::selection,
+textarea:focus {
+    box-shadow: none !important;
+}
+
+.form-select {
+    text-transform: capitalize;
+    box-shadow: none !important;
+}
+
+.form-check-input {
+    box-shadow: none !important;
+}
+
+.user-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+#btn-position {
+    position: static;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 680px;
+    padding: 25px 40px;
+}
+
+.messages-box{
+    background-color: #d1e7dd;
+    height: 50px;
+    text-align: center;
+    margin: auto;
 }

@@ -1,8 +1,26 @@
 {% extends 'core/base.html' %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/profile.css' %}">
+{% endblock %}
 
 {% block body %}
-<h1>{{ profile.username }}</h1>
-<h2>{{ profile.full_name }}</h2>
+<div class="profile-header container-fluid p-5">
+    <div class="head-section d-flex flex-column justify-content-center align-items-center gap-3">
+        <img class="profile-img img-fluid img-thumbnail rounded-circle" src="{{ profile.pfp.url }}">
+        <h2>{{ profile.full_name|title }}</h2>
+        <div class="profile-meta d-flex gap-3">
+            <span>
+                <a href="{{ profile.website_link }}">{{ profile.website_link }}</a>
+            </span>
+            <span>
+                <p>{{ profile.country }}</p>
+            </span>
+        </div>
+    </div>
+
+</div>
+<!-- <h2>{{ profile.full_name }}</h2>
 <p>{{ profile.bio }}</p>
 <p>{{ profile.gender }}</p>
 <p>{{ profile.date_joined }}</p>
@@ -13,5 +31,5 @@
 {% for post in posts %}
     {{ post.title }}
 <br>
-{% endfor %}
+{% endfor %} -->
 {% endblock %}

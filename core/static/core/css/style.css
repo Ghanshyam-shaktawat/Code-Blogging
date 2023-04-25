@@ -43,6 +43,7 @@ body {
     left: 0;
     right: 0;
     box-shadow: 0 0px 2px 2px #979797;
+    z-index: 999;
 }
 
 /* nav container */
