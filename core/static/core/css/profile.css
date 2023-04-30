@@ -1,11 +1,8 @@
-.profile-header{
+.head-section{
     background-color: var(--secondary-color);
     color: var(--bg-color-prim);
-}
-
-.head-section{
-    width: 800px;
     margin: auto;
+    width: 100%;
 }
 
 .profile-img{
@@ -16,4 +13,35 @@
 
 .profile-meta{
     font-size: 0.8rem;
+}
+
+.profile-posts{
+    width: 800px;
+    background-color: var(--bg-color-sec);
+}
+
+.profile-articles{
+    background-color: var(--bg-color-prim);
+}
+
+.article-wrapper > a > h2{
+    color: #333;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    text-decoration: none;
+}
+
+.article-wrapper>a:hover, .article-wrapper>h2:hover{
+    color:aqua
+}
+
+.edit-button{
+    width: 120px;
+    height: 50px;
+    background-color: var(--primary-color);
+    outline: none;
+    border: none;
+    color: #fff;
+    top: 100px;
+    right: 100px
 }

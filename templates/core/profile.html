@@ -5,18 +5,38 @@
 {% endblock %}
 
 {% block body %}
-<div class="profile-header container-fluid p-5">
-    <div class="head-section d-flex flex-column justify-content-center align-items-center gap-3">
+<div class="container-fluid p-0 d-flex flex-column align-items-center h-100">
+    {% if user.is_authenticated %}
+    <a href="{% url 'accounts:settings' %}"><button class="edit-button rounded position-fixed">Edit Profile</button></a>
+    {% endif %}
+    <div class="head-section d-flex flex-column justify-content-center align-items-center gap-4 p-5 mb-5">
         <img class="profile-img img-fluid img-thumbnail rounded-circle" src="{{ profile.pfp.url }}">
         <h2>{{ profile.full_name|title }}</h2>
-        <div class="profile-meta d-flex gap-3">
+        <div class="profile-meta d-flex flex-row gap-3 justify-content-center align-items-center">
             <span>
+                <i class="fa-solid fa-link"></i>
                 <a href="{{ profile.website_link }}">{{ profile.website_link }}</a>
             </span>
-            <span>
-                <p>{{ profile.country }}</p>
+            <span class="d-inline">
+                <i class="fa-sharp fa-solid fa-location-dot"></i>
+                <span>{{ profile.country }}</span>
             </span>
         </div>
+        <div class="post-counter mt-3">
+            Post Published - {{ posts|length }}
+        </div>
+    </div>
+    <div class="profile-posts d-flex flex-column gap-3">
+        {% for post in posts %}
+        <article class="profile-articles p-4 rounded">
+            <div class="container article-wrapper mb-3">
+                <a href="{% url 'core:detail' profile.username post.slug %}" class="text-decoration-none"><h2 class="m-0 p-0">{{ post.title }}</h2></a>
+            </div>
+            <div class="container snippets">
+                <span class="fs-6">{{ post.snippets }}</span>
+            </div>
+        </article>
+        {% endfor %}
     </div>
 
 </div>
