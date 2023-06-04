@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, HttpResponse
 from django.urls import reverse
-from core.models import Post, Comment, Bookmark
+from core.models import Post, Comment, Bookmark, Category
 from django.db.models import Q
-from core.forms import NewPostForm, CommentForm
+from core.forms import NewPostForm, CommentForm, EditPostForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 
@@ -11,7 +11,9 @@ User = get_user_model()
 
 def index(request):
     posts = Post.objects.filter(status=1).order_by('-created_on')
+    cat = Category.objects.order_by('cat')
     context = {
+        'cat': cat,
         'posts': posts,
         }
     return render(request, 'core/index.html', context)
@@ -19,11 +21,16 @@ def index(request):
 
 def detail_post(request, author, slug):
     context = {}
-    post = get_object_or_404(Post, author__username=author, slug=slug)
+    post = get_object_or_404(Post, author__username=author, slug__iexact=slug)
     total_likes = post.total_likes()
     context['post'] = post
     context['likes'] = total_likes
+    return render(request, 'core/detail.html', context)
 
+
+def comments(request, author, slug):
+    context = {}
+    post = get_object_or_404(Post, author__username=author, slug=slug)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -32,7 +39,6 @@ def detail_post(request, author, slug):
             comment.user = request.user
             comment.save()
             return redirect(reverse('core:detail', args=[post.author, post.slug]))
-        
     else:
         form = CommentForm()
         context['form'] = form  
@@ -47,7 +53,7 @@ def new_post(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect(reverse('core:detail', args=[request.user.username, request.POST.get('slug')]))
+            return redirect(reverse('core:detail', args=[request.user.username, post.slug]))
         else:
             context = {'filledform': form, 'form':form}
             return render(request, 'core/newpost.html', context)
@@ -69,9 +75,9 @@ def edit_post(request, author, slug):
         raise Http404
         
     if request.method != 'POST':
-        form = NewPostForm(instance=post)
+        form = EditPostForm(instance=post)
     else:
-        form = NewPostForm(request.POST, request.FILES or None, instance=post)
+        form = EditPostForm(request.POST, request.FILES or None, instance=post)
         if form.is_valid():
             form.save()
             return redirect(reverse('core:detail', args=[request.user.username, post.slug]))
@@ -100,10 +106,10 @@ def search(request):
 
     search_posts = Post.objects.filter(Q(title__icontains=query) | Q(), status=1).order_by('-created_on')
 
-    search_user = User.objects.filter(Q(username__icontains=query) | Q(full_name__icontains=query))
+    # search_user = User.objects.filter(Q(username__icontains=query) | Q(full_name__icontains=query))
 
     context = {
-        'object_list': search_posts, 'users': search_user, 'query': query
+        'object_list': search_posts, 'query': query
     }
     return render(request, 'core/search.html', context)
         
@@ -116,6 +122,15 @@ def profile(request, profile):
         'posts': posts,
     }
     return render(request, 'core/profile.html', context)
+
+
+@login_required
+def dashboard(request):
+    context = {}
+    context["post_count"] = Post.objects.filter(author=request.user, status=1).count()
+    context["posts"] = Post.objects.filter(author=request.user).order_by('-created_on')
+    
+    return render(request, 'core/dashboard.html', context)
 
 
 @login_required

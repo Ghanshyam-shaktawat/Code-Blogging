@@ -1,0 +1,58 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Code Blog{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/dashboard.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<div class="container dashboard-wrapper">
+    <div class="container dashboard-max-w">
+        <h3>My Dashboard</h3>
+        <div class="container row gap-4 mt-4">
+            <div class="card col card-height">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Post Published</h5>
+                    <p class="card-text ">{{ post_count }}</p>
+                </div>
+            </div>
+            <div class="card col card-height">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Likes Gained</h5>
+                    <p class="card-text">23</p>
+                </div>
+            </div>
+            <div class="card col card-height">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Comments Made</h5>
+                    <p class="card-text">23</p>
+                </div>
+            </div>
+        </div>
+        <main class="container d-flex flex-column gap-2 mt-4">
+            {% if posts %}
+            {% for post in posts %}
+            <article class="dash-article d-flex rounded gap-2 border border-2 justify-content-between align-items-center px-3 py-1">
+                <a href="#" class="dash-p-title h-auto fw-bold w-50 text-decoration-none">{{ post.title }}</a>
+                <span class="dash-p-status px-2 py-1">
+                    {% if post.status == 0 %}
+                    Draft
+                    {% else %}
+                    Published
+                    {% endif %}
+                </span>
+                <div class="dash-p-buttons">
+                    <a class="text-decoration-none text-primary mx-2" href="{% url 'core:edit-post' post.author post.slug %}">Edit</a>
+                    <a class="text-decoration-none text-danger" href="{% url 'core:delete-post' post.author post.slug %}">Delete</a>
+                </div>
+            </article>
+            {% endfor %}
+            {% endif %}
+        </main>
+    </div>
+</div>
+
+{% endblock %}

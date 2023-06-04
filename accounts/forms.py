@@ -31,6 +31,11 @@ class RegistrationForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username = forms.CharField()
 
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] = 'field'
+        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+
 class EditUserForm(UserChangeForm):
     username = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':'form-control'}))
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class':'form-control'}))

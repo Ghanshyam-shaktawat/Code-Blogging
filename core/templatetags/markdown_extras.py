@@ -8,5 +8,5 @@ register = template.Library()
 
 @register.filter()
 @stringfilter
-def convert_to_markdown(value):
+def markdown(value):
     return markdown.markdown(value)

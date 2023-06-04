@@ -19,7 +19,7 @@
                 {% csrf_token %}
                 <div class="field-contain">
                     <i class="fa-solid fa-user icon"></i>
-                    <input class="field" type="text" placeholder="Enter Username/Email" name="username" autofocus>
+                    {{ form.username }}
                 </div>
                 <div class="field-contain">
                     <i class="fa-solid fa-lock icon"></i>

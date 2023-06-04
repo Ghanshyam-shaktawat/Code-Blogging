@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment, Bookmark
+from .models import Post, Comment, Bookmark, Category
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'author', 'status', 'created_on']
@@ -9,6 +9,7 @@ class PostAdmin(admin.ModelAdmin):
 class AdminComment(admin.ModelAdmin):
     list_display = ['post', 'user']
 
+admin.site.register(Category)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, AdminComment)
 admin.site.register(Bookmark)

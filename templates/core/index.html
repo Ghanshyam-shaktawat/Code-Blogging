@@ -6,55 +6,58 @@
 {% endblock %}
 
 {% block body %}
-<div class="grid-wrapper">
-    <nav class="left-nav">
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li>Categories
-                <ul>
-                    <li>Python</li>
-                    <li>C/C++</li>
-                    <li>Ruby</li>
-                    <li>Java</li>
-                    <li>Javascript</li>
-                    <li>Html/Css</li>
-                </ul>
-            </li>
+<div class="grid-wrapper row m-auto">
+    <nav class="left-sec col-1 gap-3 position-fixed">
+        <ul class="list-group">
+            <a href="{%url 'core:index' %}" class="text-decoration-none">
+                <li class="list-group-item pointer text-decoration-none">Home</li>
+            </a>
+            <a href="{%url 'core:index' %}" class="text-decoration-none">
+                <li class="list-group-item pointer text-decoration-none">About Us</li>
+            </a>
+            <a href="{%url 'core:index' %}" class="text-decoration-none">
+                <li class="list-group-item pointer text-decoration-none">Contact Us</li>
+            </a>
+            {% for c in cat %}
+            <a href="{%url 'core:index' %}" class="text-decoration-none">
+                <li class="list-group-item pointer text-decoration-none">{{ c.cat }}</li>
+            </a>
+            {% endfor %}
         </ul>
     </nav>
-    <main class="main-block">
-        <span class="latest-post-span">Latest Post</span>
-        <div class="articles-flex">
+    <main class="container col d-flex flex-column gap-2 main-block">
+        <span class="latest-post-span fw-bolder w-auto py-2">Latest Post</span>
+        <div class="d-flex flex-column gap-5">
             {% for post in posts %}
-            <article class="main-articles">
+            <article class="main-articles h-auto">
                 <div class="post-img">
                     {% if post.cover_image %}
                     <img src="{{ post.cover_image.url }}">
                     {% endif %}
                 </div>
-                <div class="inner-padding">
-                    <div class="author-info">
-                        <a href="{% url 'core:profile' post.author %}" class="flex-row author-info-link">
+                <div class="py-4 px-4 d-flex flex-column gap-2">
+                    <a href="#" class="fw-bolder text-decoration-none index-cate">{{ post.category|title }}</a>
+                    <div class="d-flex flex-column align-items-start gap-0 text-decoration-none">
+                        <a href="{% url 'core:profile' post.author %}"
+                            class="flex-row author-info-link text-decoration-none">
                             <img src="{{ post.author.pfp.url }}" class="author-img" onclick="">
-                            <span>{{ post.author.full_name }}</span>
+                            <span class="ms-2 fw-semibold">{{ post.author.full_name }}</span>
                         </a>
-                        <p>|</p>
-                        <p>{{ post.created_on|date }}</p>
+                        <p class="m-0 p-0 lh-1 ms-5">Published on - {{ post.created_on|date }}</p>
                     </div>
-                    <div class="post-info">
+                    <div class="d-flex flex-column gap-2 post-info mx-5 mt-1">
                         <a href="{% url 'core:detail' post.author post.slug %}">
-                            <h2>{{ post.title }}</h2>
+                            <h2 class="first-letter-capital">{{ post.title }}</h2>
                         </a>
                         <p class="post-snippet">{{ post.snippets }}</p>
                     </div>
-                    <div class="flex-row flex-gap">
-                        <div class="flex-row gap-10 pointer">
-                            <i class="fa-solid fa-heart" style="color: #ff0000;"></i>5 Likes
+                    <div class="d-flex gap-4 mx-5">
+                        <div class="pointer">
+                            <i class="fa-solid fa-heart me-2" style="color: #ff0000;"></i>5 Likes
                         </div>
-                        <div class="flex-row gap-10 pointer">
-                            <i class="fa-regular fa-comment"></i>{{ post.comments.all|length }} Comment{{ post.comments.all|pluralize }}
+                        <div class="pointer">
+                            <i class="fa-regular fa-comment me-2"></i>{{ post.comments.all|length }}
+                            Comment{{post.comment.all|pluralize }}
                         </div>
                     </div>
                 </div>
@@ -62,6 +65,5 @@
             {% endfor %}
         </div>
     </main>
-    <aside class="right-sec">Right</aside>
 </div>
 {% endblock %}

@@ -1,33 +1,53 @@
 {% extends 'core/base.html' %}
+{% load static %}
+
 {% block title %}
 Search results for {{ query }} - Code Blog
 {% endblock %}
 
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/search.css' %}">
+{% endblock %}
+
 {% block body %}
-<div class="search-body">
-    <h1>{{ object_list | length }}</h1>
-
-{% if object_list|length == 0 %}
-    <p>NO RESULTS FOUND FOR '{{ query }}'</p>
-    <p>¯\_(ツ)_/¯</p>
-{% else %}
-    {% for post in object_list %}
-    {{ post.title }}<br/>
-    {% endfor %}
-{% endif %}
-</div>
-<hr>
-<div class="search-body">
-    <h1>{{ users | length }}</h1>
-
-    {% if users|length == 0 %}
-    <p>NO RESULTS FOUND FOR '{{ query }}'</p>
-    <p>¯\_(ツ)_/¯</p>
-    {% else %}
-    {% for u in users %}
-    <p>{{ u.full_name }}</p>
-    <p>{{ u.username }}</p>
-    {% endfor %}
-    {% endif %}
-</div>
+<main class="container col d-flex flex-column gap-2 main-block m-auto main-block">
+    <span class="latest-post-span fw-bolder w-auto py-2">Search results found for "{{ query}}" : {{ object_list | length }}</span>
+    <div class="d-flex flex-column gap-5">
+        {% for post in object_list %}
+        <article class="main-articles h-auto">
+            <div class="post-img">
+                {% if post.cover_image %}
+                <img src="{{ post.cover_image.url }}">
+                {% endif %}
+            </div>
+            <div class="py-4 px-4 d-flex flex-column gap-2">
+                <a href="#" class="fw-bolder text-decoration-none index-cate">{{ post.category|title }}</a>
+                <div class="d-flex flex-column align-items-start gap-0 text-decoration-none">
+                    <a href="{% url 'core:profile' post.author %}"
+                        class="flex-row author-info-link text-decoration-none">
+                        <img src="{{ post.author.pfp.url }}" class="author-img" onclick="">
+                        <span class="ms-2 fw-semibold">{{ post.author.full_name }}</span>
+                    </a>
+                    <p class="m-0 p-0 lh-1 ms-5">Published on - {{ post.created_on|date }}</p>
+                </div>
+                <div class="d-flex flex-column gap-2 post-info mx-5 mt-1">
+                    <a href="{% url 'core:detail' post.author post.slug %}">
+                        <h2 class="first-letter-capital">{{ post.title }}</h2>
+                    </a>
+                    <p class="post-snippet">{{ post.snippets }}</p>
+                </div>
+                <div class="d-flex gap-4 mx-5">
+                    <div class="pointer">
+                        <i class="fa-solid fa-heart me-2" style="color: #ff0000;"></i>5 Likes
+                    </div>
+                    <div class="pointer">
+                        <i class="fa-regular fa-comment me-2"></i>{{ post.comments.all|length }}
+                        Comment{{post.comment.all|pluralize }}
+                    </div>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</main>
 {% endblock %}

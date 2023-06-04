@@ -1,48 +1,98 @@
 {% extends 'core/base.html' %}
-{% load markdown_extras %}
+{% load markdownify %}
+{% load humanize %}
 {% load static %}
-  
+
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'core/detail.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/detail.css' %}">
 {% endblock %}
 
 {% block title %}{{ post.title }} - Code Blog{% endblock %}
 
 {% block body %}
-    <div class="wrapper">
-        {% if post.author.username == user.username %}
-        <a href="{% url 'core:edit-post' user.username post.slug %}">Edit Post</a>
-        <a href="{% url 'core:delete-post' user.username post.slug %}">Delete post</a>
-        {% endif %}
-        <article class="main-article">
-            <header class="main-head">
-                <h1 class="main-title">{{ post.title }}</h1>
-                <p class="main-snip">Snippets</p>
-                <span>{{ post.created_on }} Author- {{ post.author }}</span>
-            </header>
-            <div class="main-body">
-                {{ post.body | convert_to_markdown | safe }}
-            </div>
-        </article>
-        <div class="comments">
-            <h2>Comments..</h2>
-            <h4>add New comment</h4>
-            <form method="post">
-                {% csrf_token %}
-                <textarea name="body" class="comment-body"></textarea>
-                {% if user.is_authenticated %}
-                    <button type="submit">Comment</button>
-                {% else %}
-                    <button type="submit" disabled>Comment</button>
-                {% endif %}
-            </form>
-
-            {% if post.comments.all %}
-                {% for comment in post.comments.all %}
-                    <i>{{ comment.user }}</i>
-                    <p>{{ comment.body }}</p>
-                {% endfor %}
-            {% endif %}
-        </div>
+<div class="container wrap-detail-page d-flex flex-row gap-3 mt-5">
+    <div class="container detail-post-nav text-center border-rad-8">
+        <aside class="d-flex flex-column d-gap-nav">
+            <a href="#" class="text-decoration-none d-flex flex-column gap-4 d-nav-links">
+                <i class="fa-sharp fa-regular fa-heart fa-lg"></i>
+                <span>32</span>
+            </a>
+            <a href="#post-comment" class="text-decoration-none d-flex flex-column gap-4 d-nav-links">
+                <i class="fa-regular fa-comment fa-lg"></i>
+                <span>{{ post.comments.all|length }}</span>
+            </a>
+            <a class="text-decoration-none d-flex flex-column gap-4 d-nav-links">
+                <i class="fa-regular fa-bookmark fa-lg"></i>
+                <span>9</span>
+            </a>
+            <a class="text-decoration-none d-flex flex-column gap-4 d-nav-links">
+                <i class="fa-regular fa-share fa-lg"></i>
+            </a>
+        </aside>
     </div>
+    <main class="container read-contain border-rad-8 p-5">
+        <div class="article-=wrapper">
+            <article class="detail-article d-flex flex-column gap-2">
+                <a href="#" class="detail-category">{{ post.category }}</a>
+                <div class="d-post-aut d-flex gap-3 align-items-center">
+                    <div>
+                        <a href="{% url 'core:profile' post.author %}">
+                            <img src="{{ post.author.pfp.url }}" class="d-pfp rounded-circle">
+                        </a>
+                    </div>
+                    <div class="d-auth-details m-0">
+                        <a href="{% url 'core:profile' post.author %}"
+                            class="fw-semibold text-decoration-none text-dark text-primary-hover">
+                            {{post.author.full_name }}</a><br>
+                        <small>{{ post.created_on|naturaltime }}</small>
+                    </div>
+                </div>
+                <div class="d-title-wrapper">
+                    <h1 class="h1 fw-bold mb-3">{{ post.title }}</h1>
+                    <span class="d-snippet">{{ post.snippets }}</span>
+                </div>
+                <div class="detail-cover-img mt-3 mb-0">
+                    <img class="d-cover-image" src="{{ post.cover_image.url }}">
+                </div>
+                <div class="dbody-wrapper mt-5">
+                    {{ post.body|markdownify }}
+                </div>
+            </article>
+            <div class="comments container mt-4">
+                <h4>Latest Comments</h4>
+                <div class="pt-3" id="post-comment">
+                    <form action="{% url 'core:comment' post.author post.slug %}" method="post">
+                        {% csrf_token %}
+                        <textarea name="body" id="comment-body" class="form-control"
+                            placeholder="Write a comment...."></textarea>
+                        <input class="btn btn-primary my-3" type="submit" name="submit" value="Comment">
+                    </form>
+                </div>
+                {% for comment in post.comments.all %}
+                <div class="comment container mt-4 border border-1 py-3">
+                    <div class="comment-meta d-flex gap-2 align-items-center">
+                        <img src="{{ comment.user.pfp.url }}" class="rounded-circle img-thumbnail comment-pfp">
+                        <a href="{% url 'core:profile' comment.user %}" class="text-decoration-none comment-link">
+                            <div class="d-flex gap-2 align-items-center">
+                                {% if comment.user.username == post.author.username %}
+                                <span class="fw-bolder comment-author">{{ comment.user.full_name }}</span>
+                                <span class="fw-bolder">(Author)</span>
+                                <span class="comment-date">| {{ comment.comment_date }}</span>
+                                {% else %}
+                                <span class="fw-bolder">{{ comment.user.full_name }}</span>
+                                <span class="comment-date">| {{ comment.comment_date }}</span>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </div>
+                    <div class="comment-body">
+                        <p class="comment-m-left">{{ comment.body }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </main>
+</div>
 {% endblock %}

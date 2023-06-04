@@ -18,6 +18,10 @@
     box-sizing: border-box;
 }
 
+html{
+    scroll-padding-top: 120px;
+}
+
 html,
 body {
     margin: 0;
@@ -308,7 +312,7 @@ body {
 }
 
 .body-wrapper{
-    margin-top: 60px;
+    margin-top: 0px;
     width: 100%;
     min-height: calc(100vh - 60px);
     height: 100%;

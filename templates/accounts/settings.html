@@ -7,14 +7,13 @@
 <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/settings.css' %}">
 {% endblock %}
 
-{% block body %}
 
+{% block body %}
 {% if messages %}
 <!-- Shows succes message when form is valid -->
-<div class="messages-box">
+<div class="messages-box margin-top">
     {% for message in messages %}
-    <div class="message alert alert-success" role="alert"> {{ message }}
-    </div>
+    <div class="message alert alert-success" role="alert"> {{ message }}</div>
     {% endfor %}
 </div>
 {% endif %}
@@ -22,7 +21,7 @@
 {% for field in form %}
 {% if field.errors %}
 <!-- Shows error message when form is invalid -->
-<div class="messages-box">
+<div class="messages-box margin-top">
     {% for error in field.errors %}
     <div class="message alert alert-danger" role="alert"> {{ error }}</div>
     {% endfor %}
@@ -30,10 +29,8 @@
 {% endif %}
 {% endfor %}
 
-
-
-<div class="main-settings">
-    <div class="main-wrapper container gap-10">
+<div class="main-settings mt-4">
+    <div class="main-wrapper container gap-10 mt-4">
         <span class="set-title">Settings For @{{ user.username }}</span>
         <div class="layout mt-4">
             <form method='POST' enctype="multipart/form-data" class="d-flex flex-column gap-3 mb-5" onclick="changeToSticky()">

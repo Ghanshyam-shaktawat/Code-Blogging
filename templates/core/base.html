@@ -16,6 +16,7 @@
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
 
     <!-- My css files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'core/css/codehilite_styles.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'core/css/style.css' %}">
     {% block styles %}{% endblock %}
 
@@ -52,7 +53,7 @@
                                 <span class="bold">@{{ user.username }}</span>
                             </li>
                             <hr/>
-                            <li><a href="#" class="drop-nav-item">Dashboard</a></li>
+                            <li><a href="{% url 'core:dashboard' %}" class="drop-nav-item">Dashboard</a></li>
                             <li><a href="{% url 'core:profile' user.username %}" class="drop-nav-item">Your Profile</a></li>
                             <li><a href="{% url 'core:new-post' %}" class="drop-nav-item">Create Post</a></li>
                             <li><a href="{% url 'accounts:settings' %}" class="drop-nav-item">Settings</a></li>
