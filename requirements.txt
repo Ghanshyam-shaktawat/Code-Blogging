@@ -1,6 +1,6 @@
 asgiref==3.6.0
 bleach==6.0.0
-Django==4.1.7
+Django==4.1.13
 django-browser-reload==1.8.0
 django-markdownify==0.9.3
 fontawesomefree==6.4.0
