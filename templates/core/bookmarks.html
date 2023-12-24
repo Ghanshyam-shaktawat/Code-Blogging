@@ -1,4 +1,9 @@
-here''s likes nookmarl
-{% for bk in bookmarks %}
-<h1>{{ bk.bookmark_post }}</h1>
-{% endfor %}
+here''s likes nookmarl:
+
+<ol>
+    {% for bk in bookmarks %}
+    <li>
+        <h1>{{ bk.title }}</h1>
+    </li>
+    {% endfor %}
+</ol>

@@ -53,11 +53,12 @@
                     </div>
                     <div class="d-flex gap-4 mx-5">
                         <div class="pointer">
-                            <i class="fa-solid fa-heart me-2" style="color: #ff0000;"></i>5 Likes
+                            <i class="fa-solid fa-heart me-2" style="color: #ff0000;"></i>
+                            {{ post.likes.count }}
                         </div>
                         <div class="pointer">
-                            <i class="fa-regular fa-comment me-2"></i>{{ post.comments.all|length }}
-                            Comment{{post.comment.all|pluralize }}
+                            <i class="fa-regular fa-comment me-2"></i>{{ post.comments.count }}
+                            Comment{{post.comments.count | pluralize }}
                         </div>
                     </div>
                 </div>

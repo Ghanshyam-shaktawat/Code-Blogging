@@ -11,21 +11,37 @@
 
 {% block body %}
 <div class="container wrap-detail-page d-flex flex-row gap-3 mt-5">
-    <div class="container detail-post-nav text-center border-rad-8">
-        <aside class="d-flex flex-column d-gap-nav">
-            <a href="#" class="text-decoration-none d-flex flex-column gap-4 d-nav-links">
-                <i class="fa-sharp fa-regular fa-heart fa-lg"></i>
-                <span>32</span>
-            </a>
-            <a href="#post-comment" class="text-decoration-none d-flex flex-column gap-4 d-nav-links">
+    <div class="detail-post-nav text-center border-rad-8">
+        <aside class="side-nav">
+            <form class="text-decoration-none d-flex flex-column gap-3 d-nav-links" action="{% url 'core:like_post' post.author post.slug %}"
+                method="POST">
+                {% csrf_token %}
+                <button type="submit" id="like_post" class="r-nav-buttons">
+                    {% if user in post.likes.all %}
+                    <i class="fa-sharp fa-regular fa-heart fa-lg red"></i>
+                    {% else %}
+                    <i class="fa-sharp fa-regular fa-heart fa-lg black"></i>
+                    {% endif %}
+                    <span>{{ post.likes.count }}</span>
+                </button>
+            </form>
+            <a href="#post-comment" class="text-decoration-none r-nav-buttons">
                 <i class="fa-regular fa-comment fa-lg"></i>
-                <span>{{ post.comments.all|length }}</span>
+                <span>{{ post.comments.count }}</span>
             </a>
-            <a class="text-decoration-none d-flex flex-column gap-4 d-nav-links">
-                <i class="fa-regular fa-bookmark fa-lg"></i>
-                <span>9</span>
-            </a>
-            <a class="text-decoration-none d-flex flex-column gap-4 d-nav-links">
+            <form class="text-decoration-none d-flex flex-column gap-3 d-nav-links" action="{% url 'core:bookmark_post' post.author post.slug %}"
+                method="POST">
+                {% csrf_token %}
+                <button type="submit" id="like_post" class="r-nav-buttons">
+                    {% if user in bookmarks.bookmark_by %}
+                    <i class="fa-regular fa-bookmark fa-lg red"></i>
+                    {% else %}
+                    <i class="fa-regular fa-bookmark fa-lg black"></i>
+                    {% endif %}
+                    <span>{{ post.bookmarks.count }}</span>
+                </button>
+            </form>
+            <a class="text-decoration-none d-flex flex-column gap-3 d-nav-links">
                 <i class="fa-regular fa-share fa-lg"></i>
             </a>
         </aside>

@@ -24,7 +24,7 @@ class UserRegisterView(CreateView):
         """        
         if request.user.is_authenticated:
             return redirect(reverse('core:index'))
-        return super(UserRegisterView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
 class LoginView(auth_view.LoginView):
@@ -40,8 +40,8 @@ class LoginView(auth_view.LoginView):
         """
         if request.user.is_authenticated:
             return redirect(reverse('core:index'))
-        return super(LoginView, self).dispatch(request, *args, **kwargs)
-    
+        return super().dispatch(request, *args, **kwargs)
+
 
 class EditUserProfile(UpdateView):
     """Update view for editing the user profile."""
@@ -56,5 +56,4 @@ class EditUserProfile(UpdateView):
     def form_valid(self, form):
         self.object.save()
         messages.success(self.request, "Changes made Successfully!")
-
         return super().form_valid(form)

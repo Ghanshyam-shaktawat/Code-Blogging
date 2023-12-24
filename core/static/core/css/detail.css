@@ -18,10 +18,43 @@
     padding: 100px 5px 5px 5px;
     position: fixed;
     top: 80px;
+    padding: 0 !important;
+}
+
+.side-nav{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
 }
 
 .d-nav-links{
     color: inherit;
+}
+
+.red{
+    color: red;
+}
+
+.default{
+    color: black;
+}
+
+.r-nav-buttons{
+    border: none;
+    background-color: transparent;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.r-nav-buttons:hover{
+    color: rgb(0, 72, 255);
 }
 
 /* left nav end */
