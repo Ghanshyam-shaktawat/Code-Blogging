@@ -1,44 +1,88 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
 {% block title %}
 About Us - Code Blog
 {% endblock %}
 
 {% block body %}
+<div class="container-fluid d-flex flex-column align-items-center mt-2">
+    <div class="container" style="max-width: 800px; margin-top: 80px !important;">
+        <div class="fs-5 fw-semibold">
+            <header>
+                <h1 class="fs-1 fw-bold text-start">Welcome to CodeBlog</h1>
+                <p class="text-start">
+                    Where coding meets community. We're a platform designed for passionate programmers,
+                    learners, and experts alike, all driven by a shared love for code. Whether you're a seasoned
+                    developer
+                    or just beginning your coding journey, you're in the right place.
+                </p>
+            </header>
+            <section>
+                <h2 class="fs-2 fw-semibold">Our Mission</h2>
+                <hr class="border border-2 border-secondary" />
+                <p>At CodeBlog, we believe in the power of knowledge-sharing. Our mission is to create a hub where
+                    individuals
+                    can come together to share their coding insights, learn from one another, and ultimately grow as
+                    developers.
+                    We're dedicated to fostering an environment of inclusivity, creativity, and collaboration.</p>
+            </section>
 
-    <p>About CodeBlog
+            <section>
+                <h2 class="fs-2 fw-semibold">What We Offer</h2>
+                <hr class="border border-2 border-secondary" />
+                <p>Blogs and Tutorials: CodeBlog provides a space for users to publish articles in a blog format, making
+                    it
+                    seamless to share code snippets, walkthroughs, and tutorials with the community.</p>
 
-        Welcome to CodeBlog, where coding meets community. We're a platform designed for passionate programmers, learners, and experts alike, all driven by a shared love for code. Whether you're a seasoned developer or just beginning your coding journey, you're in the right place.
-        
-        Our Mission
-        
-        At CodeBlog, we believe in the power of knowledge-sharing. Our mission is to create a hub where individuals can come together to share their coding insights, learn from one another, and ultimately grow as developers. We're dedicated to fostering an environment of inclusivity, creativity, and collaboration.
-        
-        What We Offer
-        
-        Blogs and Tutorials: CodeBlog provides a space for users to publish articles in a blog format, making it seamless to share code snippets, walkthroughs, and tutorials with the community.
-        
-        Diverse Topics: From web development to machine learning, mobile apps to game design, we cover a wide range of programming languages and technologies. Whatever your interest, you'll find a welcoming space here.
-        
-        Interactive Learning: Engage with fellow coders through comments, discussions, and code reviews. Receive feedback, ask questions, and gain new perspectives.
-        
-        Community Events: Join us in coding challenges, hackathons, and live streams hosted by experienced developers. Hone your skills and connect with like-minded individuals.
-        
-        Profiles and Portfolios: Craft a personalized profile showcasing your skills, projects, and contributions. Connect with others who share your passions.
-        
-        Our Values
-        
-        Inclusivity: We believe in a community that embraces everyone, regardless of their background, level of experience, or identity. We celebrate diversity and honor all perspectives.
-        
-        Learning and Growth: We're committed to providing a supportive environment for continuous learning. No matter where you are in your coding journey, there's always room for progress.
-        
-        Quality Content: We encourage thoughtful, well-crafted content that brings value to the community. Our platform places a premium on quality over quantity.
-        
-        Respect and Empathy: We value kindness, respect, and empathy in all interactions. Disagreements are handled constructively, and we strive for a positive and uplifting atmosphere.
-        
-        Join the CodeBlog Community
-        
-        Ready to get started? Create an account, begin publishing your blogs, and engage with our vibrant community. Whether you're here to learn, teach, or simply connect with fellow coders, you'll find a home at CodeBlog.
-        
-        Let's code together and build a brighter future!</p>
-        {% endblock %}
+                <p>Diverse Topics: From web development to machine learning, mobile apps to game design, we cover a wide
+                    range of
+                    programming languages and technologies. Whatever your interest, you'll find a welcoming space here.
+                </p>
+
+                <p>Interactive Learning: Engage with fellow coders through comments, discussions, and code reviews.
+                    Receive
+                    feedback, ask questions, and gain new perspectives.</p>
+
+                <p>Community Events: Join us in coding challenges, hackathons, and live streams hosted by experienced
+                    developers. Hone your skills and connect with like-minded individuals.</p>
+
+                <p>Profiles and Portfolios: Craft a personalized profile showcasing your skills, projects, and
+                    contributions.
+                    Connect with others who share your passions.</p>
+            </section>
+
+            <section>
+                <h2 class="fs-2 fw-semibold">Our Values</h2>
+                <hr class="border border-2 border-secondary" />
+                <p>Inclusivity: We believe in a community that embraces everyone, regardless of their background, level
+                    of
+                    experience, or identity. We celebrate diversity and honor all perspectives.</p>
+
+                <p>Learning and Growth: We're committed to providing a supportive environment for continuous learning.
+                    No matter
+                    where you are in your coding journey, there's always room for progress.</p>
+
+                <p>Quality Content: We encourage thoughtful, well-crafted content that brings value to the community.
+                    Our
+                    platform places a premium on quality over quantity.</p>
+
+                <p>Respect and Empathy: We value kindness, respect, and empathy in all interactions. Disagreements are
+                    handled
+                    constructively, and we strive for a positive and uplifting atmosphere.</p>
+            </section>
+
+            <section>
+                <h2 class="fs-2 fw-semibold">Join the CodeBlog Community</h2>
+                <hr class="border border-2 border-secondary" />
+                <p>Ready to get started? Create an account, begin publishing your blogs, and engage with our vibrant
+                    community.
+                    Whether you're here to learn, teach, or simply connect with fellow coders, you'll find a home at
+                    CodeBlog.</p>
+
+                <p>Let's code together and build a brighter future!</p>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

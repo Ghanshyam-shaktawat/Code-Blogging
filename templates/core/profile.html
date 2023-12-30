@@ -1,20 +1,27 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% load humanize %}
+
+{% block title %}
+{{ profile.username }} - Code Blog
+{% endblock %}
+
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="{% static 'core/css/profile.css' %}">
 {% endblock %}
 
 {% block body %}
 <div class="container-fluid p-0 d-flex flex-column align-items-center h-10 mt-5">
-    <div class="head-section d-flex flex-column justify-content-center align-items-center gap-4 p-5 mb-5">
+    <div class="head-section d-flex flex-column justify-content-center align-items-center gap-3 p-5 mb-5">
         {% if profile.username == user.username %}
         <a href="{% url 'accounts:settings' %}"><button class="edit-button rounded position-absolute border border-0">Edit
                 Profile</button></a>
         {% endif %}
-        <img class="profile-img img-fluid img-thumbnail rounded-circle" src="{{ profile.pfp.url }}">
+        <img class="profile-img img-fluid object-fit-cover img-thumbnail rounded-circle" src="{{ profile.pfp.url }}">
         <h2>{{ profile.full_name|title }}</h2>
-        <span>{{ profile.bio }}</span>
+        {% if profile.bio %}
+            <span>{{ profile.bio }}</span>
+        {% endif %}
         <div class="profile-meta d-flex flex-row gap-3 justify-content-center align-items-center">
             <span>
                 {% if profile.website_link %}
@@ -28,7 +35,7 @@
                 <span>{{ profile.country }}</span>
                 {% endif %}
             </span>
-            <span>
+            <span class="d-inline text-center">
                 <i class="fa-solid fa-calendar-days me-1"></i>
                 <span>Joined on {{ profile.date_joined|date }}</span>
             </span>
@@ -39,7 +46,7 @@
             </span>
             {% endif %}
         </div>
-        <div class="post-counter mt-3">
+        <div class="post-counter mt-3 text-center">
             Post Published - {{ posts|length }}
         </div>
     </div>
@@ -49,7 +56,7 @@
         <article class="profile-articles rounded d-flex flex-row">
             <div class="p-4">
                 <div class="container d-flex gap-2">
-                    <img src="{{ post.author.pfp.url }}" class="article-author-img img-thumbnail rounded-circle">
+                    <img src="{{ post.author.pfp.url }}" class="article-author-img img-thumbnail object-fit-cover rounded-circle">
                     <div class="d-flex flex-column mb-3">
                         <span class="pu-name">{{ post.author.full_name }}</span>
                         <small class="pu-time">Published - {{ post.created_on|naturaltime }}</small>
@@ -70,18 +77,5 @@
         </article>
         {% endfor %}
     </div>
-
 </div>
-<!-- <h2>{{ profile.full_name }}</h2>
-<p>{{ profile.bio }}</p>
-<p>{{ profile.gender }}</p>
-<p>{{ profile.date_joined }}</p>
-{% if profile.display_email == True %}
-<p>Email - {{ profile.email }}</p>
-{% endif %}
-<br>
-{% for post in posts %}
-    {{ post.title }}
-<br>
-{% endfor %} -->
 {% endblock %}

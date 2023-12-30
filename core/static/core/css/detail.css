@@ -35,7 +35,15 @@
 }
 
 .red{
-    color: red;
+    color: red !important;
+}
+
+.gray{
+    color:#444;
+}
+
+.blue{
+    color: var(--primary-color);
 }
 
 .default{
@@ -44,7 +52,7 @@
 
 .r-nav-buttons{
     border: none;
-    background-color: transparent;
+    background-color: #fff;
     color: black;
     display: flex;
     flex-direction: column;

@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block body %}
-
 <div class="container dashboard-wrapper">
     <div class="container dashboard-max-w">
         <h3>My Dashboard</h3>
@@ -22,37 +21,70 @@
             <div class="card col card-height">
                 <div class="card-body text-center">
                     <h5 class="card-title">Likes Gained</h5>
-                    <p class="card-text">23</p>
+                    <p class="card-text">{{ total_likes_received }}</p>
                 </div>
             </div>
             <div class="card col card-height">
                 <div class="card-body text-center">
-                    <h5 class="card-title">Comments Made</h5>
-                    <p class="card-text">23</p>
+                    <h5 class="card-title">Comments Received</h5>
+                    <p class="card-text">{{ total_comments_received }}</p>
                 </div>
             </div>
         </div>
         <main class="container d-flex flex-column gap-2 mt-4">
             {% if posts %}
-            {% for post in posts %}
-            <article class="dash-article d-flex rounded gap-2 border border-2 justify-content-between align-items-center px-3 py-1">
-                <a href="#" class="dash-p-title h-auto fw-bold w-50 text-decoration-none">{{ post.title }}</a>
-                <span class="dash-p-status px-2 py-1">
-                    {% if post.status == 0 %}
-                    Draft
-                    {% else %}
-                    Published
-                    {% endif %}
-                </span>
-                <div class="dash-p-buttons">
-                    <a class="text-decoration-none text-primary mx-2" href="{% url 'core:edit-post' post.author post.slug %}">Edit</a>
-                    <a class="text-decoration-none text-danger" href="{% url 'core:delete-post' post.author post.slug %}">Delete</a>
-                </div>
-            </article>
-            {% endfor %}
+                {% for post in posts %}
+                    <article
+                        class="dash-article d-flex rounded gap-2 border border-2 justify-content-between align-items-center px-3 py-1">
+                        <a href="{% url 'core:detail' post.author post.slug %}"
+                            class="dash-p-title h-auto fw-bold w-50 text-decoration-none">{{ post.title }}</a>
+                        <span class="dash-p-status px-2 py-1">
+                            {% if post.status == 0 %}
+                            Draft
+                            {% else %}
+                            Published
+                            {% endif %}
+                        </span>
+                        <div class="dash-p-buttons">
+                            <a class="text-decoration-none text-primary mx-2"
+                                href="{% url 'core:edit_post' post.author post.slug %}">Edit</a>
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteConfirmationModal{{ post.id }}">Delete</button>
+                        </div>
+                    </article>
+                    
+                    <!-- Delete Confirmation Modal -->
+                    <div class="modal fade" id="deleteConfirmationModal{{ post.id }}" tabindex="-1" role="dialog"
+                        aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Delete Confirmation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete the post "{{ post.title }}"?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <form method="post" action="{% url 'core:delete_post' post.author post.slug %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             {% endif %}
         </main>
     </div>
 </div>
+{% endblock %}
 
+{% block script %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 {% endblock %}

@@ -42,22 +42,22 @@
             <div class="user-sec">
                 {% if user.is_authenticated %}
                 <div class="authentication-top-nav">
-                    <a href="{% url 'core:new-post' %}" class="nav-new-post">Create Post</a>
-                    <img src="{{ user.pfp.url }}" class="nav-user-img" id="dropbtn"
-                        onclick="toogleDropdown()">
+                    <a href="{% url 'core:new_post' %}" class="nav-new_post">Create Post</a>
+                    <img src="{{ user.pfp.url }}" class="nav-user-img" id="dropbtn" onclick="toogleDropdown()">
                     <div class="dropdown-nav" id="dropdown">
-                        
                         <ul>
                             <li class="nav-userinfo">
                                 <span>Singed in as</span><br>
                                 <span class="bold">@{{ user.username }}</span>
                             </li>
-                            <hr/>
+                            <hr />
                             <li><a href="{% url 'core:dashboard' %}" class="drop-nav-item">Dashboard</a></li>
-                            <li><a href="{% url 'core:profile' user.username %}" class="drop-nav-item">Your Profile</a></li>
-                            <li><a href="{% url 'core:new-post' %}" class="drop-nav-item">Create Post</a></li>
+                            <li><a href="{% url 'core:profile' user.username %}" class="drop-nav-item">Your Profile</a>
+                            </li>
+                            <li><a href="{% url 'core:new_post' %}" class="drop-nav-item">Create Post</a></li>
+                            <li><a href="{% url 'core:bookmarks' %}" class="drop-nav-item">Bookmarks</a></li>
                             <li><a href="{% url 'accounts:settings' %}" class="drop-nav-item">Settings</a></li>
-                            <hr/>
+                            <hr />
                             <li><a href="{% url 'logout' %}" class="drop-nav-item">Sign Out</a></li>
                         </ul>
                     </div>
@@ -71,7 +71,7 @@
             </div>
         </div>
     </header>
-    
+
     <div class="body-wrapper">
         {% block body %}{% endblock %}
     </div>
@@ -97,12 +97,11 @@
         // function to disable home page search bar when searchbar is empty.
         let searchButton = document.getElementById('searchButton')
 
-        function searchEmpty(){
+        function searchEmpty() {
             searchButton.disabled = false
         }
-        </script>
-        {% block script %}{% endblock %}
-
+    </script>
+    {% block script %}{% endblock %}
 </body>
 
 </html>

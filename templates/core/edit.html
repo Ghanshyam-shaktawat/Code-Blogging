@@ -30,15 +30,15 @@
         </div>
     </header>
     <main>
-        <form method="post" class="new-post-form row gap-3 h-100" autocomplete="off" enctype="multipart/form-data">
+        <form method="post" class="new_post-form row gap-3 h-100" autocomplete="off" enctype="multipart/form-data">
             {% if form.errors %}
-            {% for field in form %}
-            {% for error in field.errors %}
-            <div class="alert alert-danger w-100">
-                <strong>{{error}}</strong>
-            </div>
-            {% endfor %}
-            {% endfor %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                    <div class="alert alert-danger w-100">
+                        <strong>{{error}}</strong>
+                    </div>
+                    {% endfor %}
+                {% endfor %}
             {% endif %}
 
             {% csrf_token %}
@@ -61,8 +61,10 @@
             </div>
             <div class="left-sec col-lg-4">
                 <div class="image-upload">
-                    <label for="cover_image" class="form-label">Upload a post featured image</label>
+                    <label for="cover_image" class="form-label">Upload a new post image</label>
+                    <small class="d-block text-danger fst-italic">* uploading new image will replace the existing one</small>
                     {{ form.cover_image }}
+                    <img src="{{ form.instance.cover_image.url }}" class="object-fit-cover p-2" style="width: 100%; height: auto; max-height: 600px;">
                 </div>
                 <div class="mt-4">
                     <label for="" class="form-label">Category</label>

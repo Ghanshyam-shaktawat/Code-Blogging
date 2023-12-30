@@ -13,47 +13,40 @@
 <div class="container wrap-detail-page d-flex flex-row gap-3 mt-5">
     <div class="detail-post-nav text-center border-rad-8">
         <aside class="side-nav">
-            <form class="text-decoration-none d-flex flex-column gap-3 d-nav-links" action="{% url 'core:like_post' post.author post.slug %}"
-                method="POST">
-                {% csrf_token %}
-                <button type="submit" id="like_post" class="r-nav-buttons">
-                    {% if user in post.likes.all %}
-                    <i class="fa-sharp fa-regular fa-heart fa-lg red"></i>
-                    {% else %}
-                    <i class="fa-sharp fa-regular fa-heart fa-lg black"></i>
-                    {% endif %}
-                    <span>{{ post.likes.count }}</span>
-                </button>
-            </form>
+            <button type="submit" id="like_post" class="r-nav-buttons" data-post-id="{{ post.id }}">
+                {% if user in post.likes.all %}
+                <i class="fa-sharp fa-regular fa-heart fa-xl red"></i>
+                {% else %}
+                <i class="fa-sharp fa-regular fa-heart fa-xl gray"></i>
+                {% endif %}
+                <span style="color:#444">{{ post.likes.count }}</span>
+            </button>
             <a href="#post-comment" class="text-decoration-none r-nav-buttons">
-                <i class="fa-regular fa-comment fa-lg"></i>
-                <span>{{ post.comments.count }}</span>
+                <i class="fa-regular fa-comment fa-xl" style="color:#444"></i>
+                <span style="color:#444">{{ post.comments.count }}</span>
             </a>
-            <form class="text-decoration-none d-flex flex-column gap-3 d-nav-links" action="{% url 'core:bookmark_post' post.author post.slug %}"
-                method="POST">
-                {% csrf_token %}
-                <button type="submit" id="like_post" class="r-nav-buttons">
-                    {% if user in bookmarks.bookmark_by %}
-                    <i class="fa-regular fa-bookmark fa-lg red"></i>
-                    {% else %}
-                    <i class="fa-regular fa-bookmark fa-lg black"></i>
-                    {% endif %}
-                    <span>{{ post.bookmarks.count }}</span>
-                </button>
-            </form>
-            <a class="text-decoration-none d-flex flex-column gap-3 d-nav-links">
-                <i class="fa-regular fa-share fa-lg"></i>
-            </a>
+            <button type="submit" id="bookmark_post" class="r-nav-buttons" data-post-id="{{ post.id }}">
+                {% if user in post.bookmarks.all %}
+                <i class="fa-solid fa-bookmark fa-xl blue"></i>
+                {% else %}
+                <i class="fa-solid fa-bookmark fa-xl gray"></i>
+                {% endif %}
+                <span style="color:#444">{{ post.bookmarks.count }}</span>
+            </button>
         </aside>
     </div>
-    <main class="container read-contain border-rad-8 p-5">
+    <main class="container read-contain border-rad-8 p-5 position-relative">
+        {% if post.author == user %}
+        <a href="{% url 'core:edit_post' post.author post.slug %}" class="position-absolute btn btn-primary"
+            style="right: 50px;">Edit Post</a>
+        {% endif %}
         <div class="article-=wrapper">
             <article class="detail-article d-flex flex-column gap-2">
-                <a href="#" class="detail-category">{{ post.category }}</a>
+                <a href="{% url 'core:category' post.category %}" class="detail-category">{{ post.category }}</a>
                 <div class="d-post-aut d-flex gap-3 align-items-center">
                     <div>
                         <a href="{% url 'core:profile' post.author %}">
-                            <img src="{{ post.author.pfp.url }}" class="d-pfp rounded-circle">
+                            <img src="{{ post.author.pfp.url }}" class="d-pfp rounded-circle object-fit-cover">
                         </a>
                     </div>
                     <div class="d-auth-details m-0">
@@ -108,7 +101,94 @@
                 {% endfor %}
             </div>
         </div>
-
     </main>
 </div>
 {% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const likeButton = document.getElementById('like_post');
+        const bookmarkButton = document.getElementById('bookmark_post')
+
+        if (likeButton) {
+            likeButton.addEventListener('click', async function (e) {
+                e.preventDefault();
+
+                // Get the post ID from the data attribute
+                const postId = this.getAttribute('data-post-id');
+
+                try {
+                    // Make an AJAX request to like_view
+                    const response = await fetch(`/like/${postId}/`);
+                    // console.log('Response status:', response.status);
+
+                    if (response.ok) {
+                        // Parse the JSON response
+                        const data = await response.json();
+                        // console.log('Data received:', data);
+
+                        // Update the like count and icon based on the response
+                        const likeCountElement = document.querySelector(`#like_post span`);
+                        const likeIconElement = document.querySelector(`#like_post i`);
+
+                        likeCountElement.textContent = data.like_count;
+
+                        // Update the like icon based on the user's action
+                        if (data.is_liked) {
+                            likeIconElement.classList.add('red');
+                        } else {
+                            likeIconElement.classList.remove('red');
+                        }
+                    } else {
+                        console.error('Server returned an error:', response.status);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+        if (bookmarkButton) {
+            bookmarkButton.addEventListener('click', async function (e) {
+                e.preventDefault();
+
+                const postId = this.getAttribute('data-post-id')
+
+                try {
+                    // Make an AJAX request to bookmark_view
+                    const response = await fetch(`/bookmark/${postId}/`);
+                    // console.log('Response status:', response.status);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        // console.log('Data received:', data);
+
+                        // Update the bookmark count and icon based on the response
+                        const bookmarkCountElement = document.querySelector(`#bookmark_post span`);
+                        const bookmarkIconElement = document.querySelector(`#bookmark_post i`);
+
+                        bookmarkCountElement.textContent = data.bookmark_count;
+
+                        // Update the like icon based on the user's action
+                        if (data.is_bookmarked) {
+                            bookmarkIconElement.classList.add('blue');
+                        } else {
+                            bookmarkIconElement.classList.remove('blue');
+                        }
+
+                    } else {
+                        console.error('Server returned an error:', response.status);
+                    }
+
+                } catch (error) {
+                    console.error('Error: ', error);
+                }
+            });
+        }
+    });
+</script>
+
+
+
+{% endblock%}

@@ -1,9 +1,45 @@
-here''s likes nookmarl:
+{% extends 'core/base.html' %}
+{% load static %}
+{% load humanize %}
 
-<ol>
-    {% for bk in bookmarks %}
-    <li>
-        <h1>{{ bk.title }}</h1>
-    </li>
-    {% endfor %}
-</ol>
+{% block title %}
+My Bookmarks - Code Blog
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/profile.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid p-0 d-flex flex-column align-items-center mt-7">
+    <div class="profile-posts d-flex flex-column gap-3">
+        <span class="h3 fw-bolder">My Bookmarks</span>
+        {% for post in bookmarks %}
+        <article class="profile-articles rounded d-flex flex-row">
+            <div class="p-4">
+                <div class="container d-flex gap-2">
+                    <a href="{% url 'core:profile' post.author %}">
+                        <img src="{{ post.author.pfp.url }}" class="article-author-img img-thumbnail object-fit-cover rounded-circle">
+                    </a>
+                    <div class="d-flex flex-column mb-3">
+                        <a href="{% url 'core:profile' post.author %}" class="pu-name  text-decoration-none text-dark" style="">{{ post.author.full_name }}</a>
+                        <small class="pu-time">Published - {{ post.created_on|naturaltime }}</small>
+                    </div>
+                </div>
+                <div class="container article-wrapper mb-3">
+                    <a href="{% url 'core:detail' post.author post.slug %}" class="text-decoration-none"><h2 class="m-0 p-0">{{ post.title }}</h2></a>
+                </div>
+                <div class="container snippets">
+                    <span class="fs-6">{{ post.snippets }}</span>
+                </div>
+            </div>
+            <div class="ms-auto bg-gray rounded">
+                {% if post.cover_image %}
+                <img src="{{ post.cover_image.url }}" class="p-post-img rounded" alt="post-image">
+                {% endif %}
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

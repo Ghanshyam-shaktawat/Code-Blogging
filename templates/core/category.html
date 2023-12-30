@@ -1,6 +1,10 @@
 {% extends 'core/base.html' %}
 {% load static %}
 
+{% block title %}
+{{ cat|title }} category - Code Blog
+{% endblock %}
+
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
 {% endblock %}
@@ -8,7 +12,7 @@
 {% block body %}
 <div class="grid-wrapper d-flex flex-row m-auto gap-1">
     <main class="container d-flex flex-column gap-2 main-block">
-        <span class="latest-post-span fw-bolder w-auto py-2">Latest Post</span>
+        <span class="latest-post-span fw-bolder w-auto py-2">Category - {{ cat|title }}</span>
         <div class="d-flex flex-column gap-5">
             {% for post in posts %}
             <article class="main-articles h-auto">
@@ -56,31 +60,6 @@
                 <a href="{% url 'core:about' %}" class="block rounded-pill text-decoration-none px-4 py-1 fw-semibold">About</a>
                 <a href="#" class="block rounded-pill text-decoration-none px-4 py-1 fw-semibold">Contact us</a>
 
-            </div>
-        </div>
-        <hr />
-        <div class="sidebar-cat">
-            <span class="d-block text-bg-primary fw-bolder fs-5">Categories</span>
-            <div class="d-flex flex-row flex-wrap gap-2 mt-3">
-                {% for cat in cats %}
-                <a href="{% url 'core:category' cat %}" class="block rounded-pill text-decoration-none px-4 py-1">{{ cat }}</a>
-                {% endfor %}
-            </div>
-        </div>
-        <hr />
-        <div>
-            <span class="d-block text-bg-primary fw-bolder fs-5">Freshly Published</span>
-            <div class="d-flex flex-column gap-3 mt-3">
-                {% for post in posts|slice:":3" %}
-                <div class="sidebar-post ps-2">
-                    <a href="{% url 'core:detail' post.author post.slug %}"
-                        class="d-block text-decoration-none fs-6">{{post.title|title}}</a>
-                    <span class="sidebar-post-author">
-                        <img src="{{ post.author.pfp.url }}" class="sidebar-post-img rounded-circle d-inline">
-                        <p class="d-inline ps-1">{{post.author}}</p>
-                    </span>
-                </div>
-                {% endfor %}
             </div>
         </div>
     </section>

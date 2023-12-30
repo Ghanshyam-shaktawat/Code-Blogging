@@ -36,6 +36,12 @@ body {
     height: 100%;
 }
 
+a:hover{
+    color: var(--primary-color);
+}
+
+
+
 .main-header {
     height: 60px;
     width: 100%;
@@ -53,13 +59,13 @@ body {
 /* nav container */
 .header-container {
     max-width: 1280px;
-    padding: 6px 20px;
+    padding: 9px 20px;
     margin: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
     position: relative;
-    height: 90%;
+    height: 100%;
 }
 
 /* left nav sec */
@@ -88,7 +94,7 @@ body {
     display: flex;
     flex: 1 auto;
     align-items: center;
-    max-width: 420px;
+    max-width: 520px;
     height: 100%;
     padding: 0;
 }
@@ -204,7 +210,7 @@ body {
     color: var(--font-white);
 }
 
-.nav-new-post {
+.nav-new_post {
     border: 1px solid;
     border-color: var(--primary-color);
     color: var(--primary-color);
@@ -217,7 +223,7 @@ body {
     border-radius: 8px;
 }
 
-.nav-new-post:hover{
+.nav-new_post:hover{
     background-color: var(--primary-color);
     color: var(--font-white);
 }
@@ -234,12 +240,9 @@ body {
 
 /* user nav */
 .dropdown-nav{
-    display: inline-block;
-    padding: 5px 15px;
-    margin: 0;
-    max-width: 320px;
+    max-width: 280px;
     min-width: 200px;
-    width: max-content;
+    width: auto;
     height: auto;
     background-color: var(--bg-color-prim);
     position: absolute;
@@ -247,15 +250,37 @@ body {
     border: 1px solid;
     border-color: #dadada;
     border-radius: 8px;
-    text-align: left;
     box-shadow: 1px 1px 8px -3px #979797;
     color: var(--font-black);
     visibility: var(--visibility, hidden);
-    text-align: left;
 }
 
 .dropdown-visibility{
     visibility: visible;
+}
+
+.dropdown-nav hr{
+    margin: 8px 0;
+}
+
+.dropdown-nav ul {
+    list-style: none;
+    padding: 12px;
+    margin: 0;
+}
+
+.drop-nav-item {
+    display: block;
+    padding: 6px 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.3s;
+    border-radius: 8px;
+}
+
+.drop-nav-item:hover {
+    background-color: var(--bg-color-sec); /* Change the background color on hover as desired */
+    color: var(--primary-color);
 }
 
 .dropdown-nav span{
@@ -263,48 +288,8 @@ body {
     font-weight: 300;
 }
 
-.dropdown-nav ul{
-    list-style: none;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.drop-nav-item{
-    padding: inherit;
-    margin: 0;
-    text-decoration: none;
-    width: 100%;
-}
-
-.dropdown-nav ul li{
-    padding: 5px 8px;
-    width: 100%;
-    margin: 0;
-    border-radius: 8px;
-    margin: 1px 0;
-    cursor: pointer;
-}
-
-.drop-nav-item{
-    color: var(--font-black);
-    padding: 0;
-    margin: 0;
-    text-decoration: none;
-}
-
-.dropdown-nav li span{
-    margin: 0;
-}
-
-.dropdown-nav ul li:hover, .drop-nav-item:hover{
+.dropdown-nav a:hover{
     background-color: var(--bg-color-sec);
-}
-
-.dropdown-nav ul .nav-userinfo, 
-.dropdown-nav ul .nav-userinfo:hover{
-    cursor: default;
-    background-color: inherit;
 }
 
 .bold{
@@ -316,4 +301,12 @@ body {
     width: 100%;
     min-height: calc(100vh - 60px);
     height: 100%;
+}
+
+.mt-7{
+    margin-top: 80px;
+}
+
+.object-fit-cover{
+    object-fit: cover;
 }
