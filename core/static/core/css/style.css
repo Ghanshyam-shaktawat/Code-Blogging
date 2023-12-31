@@ -276,6 +276,9 @@ a:hover{
     color: inherit;
     transition: background-color 0.3s;
     border-radius: 8px;
+    background-color: #fff;
+    width: 100%;
+    text-align: left;
 }
 
 .drop-nav-item:hover {
