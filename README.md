@@ -3,12 +3,16 @@
 A Django-based blogging platform name `Code Blog` inspired by Dev.to, where users can publish article,
 engage with the community and bookmark their favorite posts.
 
+![2023-12-31 14 25 42 localhost ea014de02287](https://github.com/Ghanshyam-shaktawat/Code-Blogging/assets/90270349/bb608b5a-c9f9-4eb1-bf01-16a511765334)
+
+
 ## Table of Contents
 
 - [Features](#features)
+- [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
+- [Contributing](#🤝-contributing)
 - [Support](#⭐️-support)
 - [License](#license)
 
@@ -23,6 +27,20 @@ engage with the community and bookmark their favorite posts.
 - **Search:** Users can search for posts based on titles.
 - **Profile Pages:** Each user has a dedicated profile page displaying their posts.
 - **Markdown Support**: Write your blog posts using Markdown to add formatting, images, links, and more.
+
+## Screenshots
+1. **post page**
+![2023-12-31 14 26 37 localhost f36fea813bf3](https://github.com/Ghanshyam-shaktawat/Code-Blogging/assets/90270349/b9575f53-281a-414c-9048-9b572b209186)
+
+2. **create new post page**
+![2023-12-31 14 27 06 localhost 302e736b5be2](https://github.com/Ghanshyam-shaktawat/Code-Blogging/assets/90270349/26337962-2424-440b-b937-3e68099da6d9)
+
+3. **user dashboard page**
+![2023-12-31 14 39 18 localhost e60fea75c499](https://github.com/Ghanshyam-shaktawat/Code-Blogging/assets/90270349/3b9a5ca8-fbef-4f92-92ee-f7996fb553d1)
+
+4. **profile page**
+![2023-12-31 14 40 44 localhost 2fa378876bd6](https://github.com/Ghanshyam-shaktawat/Code-Blogging/assets/90270349/5b97c376-bd21-4b89-9004-6af301b1777c)
+
 
 ## Installation
 
