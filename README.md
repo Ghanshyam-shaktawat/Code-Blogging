@@ -47,13 +47,13 @@ engage with the community and bookmark their favorite posts.
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/yourproject.git
+    git clone https://github.com/Ghanshyam-shaktawat/Code-Blogging.git
     ```
 
 2. Navigate to the project directory:
 
     ```bash
-    cd yourproject
+    cd Code-blogging
     ```
 
 3. Create a virtual Environment and activate it:
