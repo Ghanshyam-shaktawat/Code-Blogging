@@ -12,8 +12,8 @@ engage with the community and bookmark their favorite posts.
 - [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#🤝-contributing)
-- [Support](#⭐️-support)
+- [Contributing](#contributing)
+- [Support](#support)
 - [License](#license)
 
 ## Features
@@ -121,12 +121,12 @@ The first thing after starting and project and creating a superuser is to create
 4. Go to the dashboard to manage your blog posts.
 5. You can leave comments on the blog posts, like or bookmark it.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions, issues and feature requests are welcome! Any changes are welcome, Please submit an Issue or even better a PR and I'll review :)
 
 
-## ⭐️ Support
+## Support
 
 Give a ⭐️  if this project helped you!
 
